@@ -2,7 +2,7 @@
 <template>
   <div>
     <el-container style="margin:0 auto;width:94%">
-      <el-header style="height:100px">
+      <el-header style="height:80px">
         <el-row :gutter="20">
           <el-col :span="6" > 
             <div class="grid-content bg-purple">

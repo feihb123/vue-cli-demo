@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="Edit" :visible.sync="dialogFormVisible" :close-on-click-modal="false" :show-close="false">
+    <el-dialog title="Edit" :visible.sync="dialogFormVisible" :close-on-click-modal="false" :show-close="false" width="40%">
         <el-form :data="form">
             <el-form-item label="item_id" :label-width="formLabelWidth">
                 <el-input :disabled="true" v-model="form.id" auto-complete="off"></el-input>
@@ -21,7 +21,6 @@
             <el-form-item label="zone" :label-width="formLabelWidth">
                 <el-input v-model="form.zone" auto-complete="off"></el-input>
             </el-form-item>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button :plain="true" type="danger" v-on:click="canclemodal">Cancel</el-button>
@@ -35,7 +34,7 @@
     export default {
         data(){
             return {
-                formLabelWidth: '120px',
+                formLabelWidth: '80px',
             }
         },
         props: ['dialogFormVisible', 'form'],

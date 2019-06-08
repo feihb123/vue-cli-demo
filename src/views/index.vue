@@ -2,6 +2,10 @@
 <template>
   <div>
       <Navigation></Navigation>
+      <Search></Search>
+      <Middle></Middle>
+      <br>
+
       <el-table
         :data="tableData"
         style="width: 80%;margin:0 auto"
@@ -10,28 +14,31 @@
         >
         <el-table-column
                     fixed
-                    prop="id"
-                    label="item_id"
+                    prop="photo"
+                    label="头像"
                     width="180"
                     align="center">
+        <!-- 表单中加载图片 -->
+         <template slot-scope="scope">
+              <img :src="api + scope.row.photo" alt="" style="width: 50px;height:50px">
+         </template>
+
         </el-table-column>
+
         <el-table-column 
-        prop="create_datetime"
-        label="日期"
+        prop="shopname"
+        label="店铺"
         width="180"
         align="center">
         </el-table-column>
+
         <el-table-column
-        prop="username"
-        label="姓名"
-        width="180"
+        prop="desc"
+        label="desc"
         align="center">
         </el-table-column>
-        <el-table-column
-        prop="zone"
-        label="地址"
-        align="center">
-        </el-table-column>
+       
+        
         <el-table-column
                     fixed="right"
                     label="Operation"
@@ -41,16 +48,20 @@
                 </template>
          </el-table-column>
     </el-table>
+    <br>
     <el-pagination background class="pagination" layout="prev, pager, next" :total="total" :page-size="pageSize"
                     v-on:current-change="changePage">
     </el-pagination>
     <DbModal :dialogFormVisible="dialogFormVisible" :form="form" v-on:canclemodal="dialogVisible"></DbModal>
+  
   </div>
 </template>
 
 <script>
 import Navigation from "../components/consumer/Navigation.vue"
+import Search from "../components/consumer/Search.vue"
 import DbModal from '../components/consumer/DbModal.vue'
+import Middle from '../components/consumer/Middle.vue'
 /* import Bus from '../eventBus' */
 
 export default {
@@ -58,19 +69,20 @@ export default {
   data () {
     return {
         tableData: [],
-                apiUrl: 'http://127.0.0.1:8000/api/persons',
-                total: 0,
-                pageSize: 10,
-                currentPage: 1,
-                sex: '',
-                email: '',
-                dialogFormVisible: false,
-                form: '',
+        api:'http://127.0.0.1:8008',
+        apiUrl: 'http://127.0.0.1:8008/shop',
+        total: 0,
+        pageSize: 10,
+        currentPage: 1,
+        sex: '',
+        email: '',
+        dialogFormVisible: false,
+        form: '',
     };  
   },
 
   components: {
-      Navigation,DbModal
+      Navigation,DbModal,Search,Middle
   },
 
   mounted () {
@@ -94,15 +106,17 @@ export default {
             getCustomers: function () {
                 this.$axios.get(this.apiUrl, {
                     params: {
-                        page: this.currentPage,
+                        /* page: this.currentPage,
                         sex: this.sex,
-                        email: this.email
+                        email: this.email */
                     }
                 }).then((response) => {
-                    this.tableData = response.data.data.results;
+                     this.tableData = response.data
+                     console.log(response.data)
+                    /* this.tableData = response.data.data.results;
                     this.total = response.data.data.total;
                     this.pageSize = response.data.data.count;
-                    console.log(response.data.data);
+                    console.log(response.data.data); */
                 }).catch(function (response) {
                     console.log(response)
                 });
@@ -114,7 +128,7 @@ export default {
             editItem: function (index, rows) {
                 this.dialogFormVisible = true;
                 const itemId = rows[index].id;
-                const idurl = 'http://127.0.0.1:8000/api/persons/detail/' + itemId;
+                const idurl = '/api/shop' + itemId;
                 this.$axios.get(idurl).then((response) => {
                     this.form = response.data;
                 }).catch(function (response) {
@@ -132,5 +146,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
+    /* 50%图片设置成圆形 */
+    img{
+        border-radius:10% ;
+    }
 </style>
