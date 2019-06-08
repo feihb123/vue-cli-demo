@@ -32,7 +32,14 @@
         </el-form-item>
 
         <el-form-item >
-            <div class="demo-image">
+             <el-popover
+                placement="top-start"
+                title="公众号"
+                width="200"
+                trigger="hover"
+                content="欢迎关注我的公众号">
+                <!-- 需要加slot="reference"才生效 -->
+                <div class="demo-image" slot="reference">
               
                 <el-image 
                 style="width: 80px; height: 80px"
@@ -41,6 +48,7 @@
                 </el-image>  
 
             </div>
+            </el-popover>
         </el-form-item>
     </el-form>
 
@@ -101,9 +109,6 @@ export default {
         width: 20%;
         
     }
-    .el-button {
-        color: aqua;
-        background: aqua;
-    }
+
 
 </style>
