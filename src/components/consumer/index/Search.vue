@@ -26,7 +26,7 @@
             <a href="#">宝马 </a>
             <a href="#"> 五菱宏光 </a>
             <a href="#"> 一汽马自达 </a>
-            <a href="#"> 奔驰汽油 </a>
+            <a href="#"> 奔驰机油 </a>
             <a href="#"> 福特Mustang </a>
             
         </el-form-item>
@@ -43,7 +43,7 @@
               
                 <el-image 
                 style="width: 80px; height: 80px"
-                src="http://localhost:8008/img/account.jpg"
+                src="http://www.datacharm.cn:8008/img/account.jpg"
                 :fit="fit">
                 </el-image>  
 

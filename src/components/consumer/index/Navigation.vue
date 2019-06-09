@@ -6,11 +6,11 @@
         <el-row :gutter="20">
           <el-col :span="6" > 
             <div class="grid-content bg-purple">
-              <img src="../../image/logo.png">
+              <img src="@/image/logo.png" class="account">
             </div>
           </el-col>
           
-          <el-col :span="11" :offset="7">
+          <el-col :span="11.1" :offset="6">
             <div class="grid-content bg-purple">
               <el-menu :default-active="activeIndex" 
                 class="el-menu-demo" 
@@ -39,10 +39,12 @@
                 </el-submenu>
                 <el-menu-item index="3">购物车</el-menu-item>
                 <el-menu-item index="4">预约</el-menu-item>
-                <el-menu-item index="5">我的信息</el-menu-item>
-                <el-menu-item index="6">个性定制</el-menu-item>
-                <el-menu-item index="7">退出</el-menu-item>
-          
+                <el-menu-item index="5">个性定制</el-menu-item>
+                <el-menu-item index="6"  style="width:120px;color:gray;">登录</el-menu-item>
+                <el-menu-item index="7"  >
+                  <img :src="photo" class="photo">
+                </el-menu-item>
+                
               </el-menu>
              </div>
             </el-col>
@@ -58,7 +60,8 @@ export default {
   name:'Navigation',
   data() {
       return {
-        activeIndex: '1'
+        activeIndex: '1',
+        photo:'http://www.datacharm.cn:8008/img/default.jpg',
       };
     },
     methods: {
@@ -74,12 +77,16 @@ export default {
 .el-main{
  text-align: center;
 }
-img{
+.account{
   height: 80px;
 }
 .el-menu-item, #order{
     font-size: 15px;
     
 }
-
+.photo{
+  width: 36px;
+  height: 36px;
+  border-radius:50% ;
+}
 </style>
