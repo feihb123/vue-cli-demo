@@ -43,7 +43,7 @@
               
                 <el-image 
                 style="width: 80px; height: 80px"
-                src="http://www.datacharm.cn:8008/img/account.jpg"
+                src="/api/img/account.jpg"
                 :fit="fit">
                 </el-image>  
 

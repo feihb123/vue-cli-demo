@@ -26,8 +26,8 @@ export default {
     return {
       currentDate: new Date(),
       shops:[],
-      prefix:"http://www.datacharm.cn:8008/",
-      url:"http://www.datacharm.cn:8008/shop",
+      prefix:"/api",
+      url:"/api/shop",
     };
   },
   mounted(){
@@ -82,9 +82,6 @@ export default {
     line-height: 12px;
   }
 
-  .button {
-    
-  }
 
   .image {
     width: 98%;

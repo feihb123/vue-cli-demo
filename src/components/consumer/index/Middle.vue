@@ -81,8 +81,8 @@ export default {
   name:'Middle',
   data () {
     return {
-      prefix:"http://www.datacharm.cn:8008/",
-      url:"http://www.datacharm.cn:8008/carousel",
+      prefix:"/api",
+      url:"/api/carousel",
       photos:[],
     };
   },

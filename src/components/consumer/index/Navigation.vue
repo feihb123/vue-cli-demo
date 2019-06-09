@@ -61,7 +61,7 @@ export default {
   data() {
       return {
         activeIndex: '1',
-        photo:'http://www.datacharm.cn:8008/img/default.jpg',
+        photo:'/api/img/default.jpg',
       };
     },
     methods: {
