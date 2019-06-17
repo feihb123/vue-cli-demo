@@ -3,7 +3,7 @@
   <div class="shop">
     <el-row>
     <el-col :span="4" v-for="(shop, index) in shops" :key="shop.shopname" :offset="index %5 ==0 ? 4 : 0">
-        <el-card :body-style="{ padding: '10px' }">
+        <el-card :body-style="{ padding: '10px' }"  shadow="hover"> 
         <img :src="prefix+shop.photo" class="image">
         <div style="padding: 14px;">
             <span>{{shop.shopname}}</span>

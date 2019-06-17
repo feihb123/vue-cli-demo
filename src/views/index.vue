@@ -2,10 +2,11 @@
 <template>
   <div>
       <Navigation></Navigation>
+      <CarType></CarType>
       <Search></Search>
       <Middle></Middle>
       <br>
-      <Shop></Shop>
+      <hot></hot>
       <Shop></Shop>
       <!-- 回到顶部 -->
       <el-backtop></el-backtop>
@@ -19,25 +20,31 @@ import Search from "../components/consumer/index/Search.vue"
 import Middle from '../components/consumer/index/Middle.vue'
 import Shop from '../components/consumer/index/Shop.vue'
 import Footer from '../components/consumer/index/Footer.vue'
+import Hot from '../components/consumer/index/HotCommodity.vue'
+import CarType from '../components/consumer/index/CarType.vue'
+
 /* import Bus from '../eventBus' */
 
 export default {
   name:'index',
   data () {
     return {
+     
     };  
   },
 
   components: {
-      Navigation,Search,Middle,Shop,Footer
+      Navigation,Search,Middle,Shop,Footer,Hot,CarType
   },
 
   mounted () {
         },
 
-    methods: {
+  methods: {
+   
 
-     }
+
+  }
 }
 
 </script>

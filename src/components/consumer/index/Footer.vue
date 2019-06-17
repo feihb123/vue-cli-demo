@@ -15,7 +15,7 @@
                  <br><br>
                  <a href="https://github.com/feihb123/vue-cli-demo">Github</a>
 
-                 <a href="mailto:datacharm@qq.com" class="email">Email</a>
+                 
               </div>
             </el-col>
             <el-col :span="6" :offset="3">
@@ -23,12 +23,14 @@
               <img src="@/image/account.jpg" class="account">
             </el-tooltip>
             </el-col>
-            <el-col :span="3" :offset="2" >
-              <br><br>
-              Design by Herb
-            </el-col>
-            <el-col :span="2" >
-              <img src="@/image/dinosaur.gif" class="dinosaur">
+            <el-col :span="4" :offset="2">
+              <div>
+                 Designed and Coded by 
+                 <br><br>
+                 <a href="https://github.com/feihb123">Herb</a>
+
+                 <a href="mailto:datacharm@qq.com" class="email">Email</a>
+              </div>
             </el-col>
           </div>
         </el-col>
@@ -82,8 +84,16 @@ export default {
     margin-top:10px; 
   }
   .dinosaur{
-    width: 95px;
+    width: 90px;
     height: 80px;
+  }
+  a{
+        color: rgb(10, 187, 157);
+        text-decoration:none;
+ }
+  a:hover {
+      text-decoration:none; 
+      color:skyblue;
   }
 
 </style>

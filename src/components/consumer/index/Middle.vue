@@ -1,12 +1,12 @@
 <!-- 中间部分 -->
 <template>
   <div>
-    <el-container class="outer">
+    <el-container class="outer" >
 
         <el-main>
    
-          <template>
-          <el-carousel :interval="3000" type="card" height="250px" >
+          <template >
+          <el-carousel :interval="3000" type="card" height="280px" >
               <el-carousel-item v-for="item in photos" :key="item.url">
               
               <el-image 
@@ -22,56 +22,7 @@
     
       
     </el-container>
-    <el-container class="outer2">
-        <el-main>
-        <el-row :gutter="20">
-          <el-col :span="6"><div class="grid-content bg-purple">
-                <el-image class="image"
-                style="width: 80px; height: 100px"
-                :src="prefix+'img/mazda.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
-                >
-                </el-image>  
-                <el-image  class="image"
-                style="width: 100px; height: 100px"
-                :src="prefix+'img/das.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
-                >
-                </el-image>  
-                </div></el-col>
-          <el-col :span="6"><div class="grid-content bg-purple">
-                <el-image  class="image"
-                style="width: 220px; height: 100px"
-                 :src="prefix+'img/mustang.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
-                >
-                </el-image></div></el-col>
-          <el-col :span="6"><div class="grid-content bg-purple">
-                <el-image  class="image"
-                style="width: 220px; height: 100px"
-                 :src="prefix+'img/ford.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
-                >
-                </el-image></div></el-col>
-          <el-col :span="6">
-            <div class="grid-content bg-purple">
-              <el-image  class="image"
-                style="width: 80px; height: 100px"
-                 :src="prefix+'img/peking.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
-                >
-                </el-image>  
-                <el-image  class="image"
-                style="width: 100px; height: 100px"
-                 :src="prefix+'img/byd.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
-                >
-                </el-image>  
-            </div>
-          </el-col>
-        </el-row>
-        </el-main>
-      </el-container>
+    
     
   </div>
 </template>

@@ -17,7 +17,7 @@
                 mode="horizontal" 
                 @select="handleSelect"
                 background-color="#fff"
-                text-color="#5D5DE6"
+                text-color="#grey"
                 active-text-color="#0000EE"
               >      
                 <el-menu-item index="1">主页</el-menu-item>
@@ -40,7 +40,7 @@
                 <el-menu-item index="3">购物车</el-menu-item>
                 <el-menu-item index="4">预约</el-menu-item>
                 <el-menu-item index="5">个性定制</el-menu-item>
-                <el-menu-item index="6"  style="width:120px;color:gray;">登录</el-menu-item>
+                <el-menu-item index="6"  style="width:120px;color:#0000EE;">登录</el-menu-item>
                 <el-menu-item index="7"  >
                   <img :src="photo" class="photo">
                 </el-menu-item>

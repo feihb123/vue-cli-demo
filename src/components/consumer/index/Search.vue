@@ -1,8 +1,8 @@
 <!-- 搜索框 -->
 <template>
-  <div>
-      <br>
-      <el-form :inline="true"  class="demo-form-inline">
+  <div class="bg">
+      <br><br>
+      <el-form :inline="true"  class="demo-form-inline" style="height:100px">
         <div id="left">
             <el-form-item >
                 <i class="el-icon-position" id="position" ></i>
@@ -15,23 +15,34 @@
                 </el-select>
             </el-form-item>
         </div>
-        <el-form-item>
+        <el-form-item >
            
-            <div>
-                <el-input placeholder="搜索汽配" v-model="input"  style="width:400px">
-                    <el-button   slot="append" class="el-icon-search" 
-                    @click="filter"></el-button>
+            <div  class="center1">
+                <el-input placeholder="搜索汽配" v-model="input"  style="width:480px">
+                    <template slot="prepend">
+                    <el-select v-model="selected"  placeholder="类型" style="width:80px">
+                        <el-option v-for="(item,i) in option" :key="i"
+                        :label="item.name" :value="item.index"
+                        >  
+                        </el-option>
+                    </el-select>
+                    </template>
+                    <template slot="append">
+                    <el-button   class="el-icon-search"  
+                    @click="search"></el-button>
+                     </template>
                 </el-input>
             </div>
+            <div class="center2">
             <a href="#">宝马 </a>
             <a href="#"> 五菱宏光 </a>
             <a href="#"> 一汽马自达 </a>
-            <a href="#"> 奔驰机油 </a>
+            <a href="#"> 奔驰汽油 </a>
             <a href="#"> 福特Mustang </a>
-            
+            </div>
         </el-form-item>
 
-        <el-form-item >
+        <el-form-item id="right">
              <el-popover
                 placement="top-start"
                 title="公众号"
@@ -53,7 +64,6 @@
     </el-form>
 
 
-    
   </div>
 </template>
 
@@ -65,6 +75,9 @@ export default {
         input:"",      
         region: '',
         fit:"cover",
+        option:[{index:1,name:'店铺'},{index:2,name:'汽配'}],
+        selected:{},
+        
         
     };
   },
@@ -72,7 +85,7 @@ export default {
   components: {},
 
   methods: {
-      filter(){
+      search(){
           alert(this.input)
       }
   }
@@ -97,6 +110,17 @@ export default {
         float: left;
         margin-left: 15%;
     }
+    .center1{
+        margin: 0px 0px 0px 160px;
+    }
+
+    .center2{
+        margin-left: 30%;
+    }
+    #right{
+        float: right;
+        margin-right: 16%;
+    }
     #position{      
         zoom:180%;
 
@@ -105,10 +129,7 @@ export default {
         width: 85% ;
         
     }
-    .el-input {
-        width: 20%;
-        
-    }
+   
 
 
 </style>
