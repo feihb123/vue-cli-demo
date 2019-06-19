@@ -8,16 +8,22 @@
         :before-close="handleClose"
         :close-on-click-modal="false"
         >
-        <el-steps :active="step" finish-status="success" simple style="margin-top: 0px" >
+        <el-steps :active="current" finish-status="success" simple style="margin-top: 0px" >
           <el-step title="车型" icon="el-icon-finished"></el-step>
           <el-step title="车系" icon="el-icon-loading"></el-step>
           <el-step title="年款" icon="el-icon-loading"></el-step>
           <el-step title="配置" icon="el-icon-loading"></el-step>
         </el-steps>
 
-        <transition mode="out-in">
-            <router-view @updateCar="updateCar" @close="canclemodal"></router-view>
-        </transition>
+        <div>
+            <router-view class="animated fadeIn" 
+            :prevId = "prevId"
+            :prevContent = "temp"
+            @updateCar="updateCar" 
+            @close="canclemodal"
+            @complete="complete"           
+            ></router-view>
+        </div>
 
         <!-- <span slot="footer" class="dialog-footer">
             <el-button @click="canclemodal" style="margin-right:20px">取 消</el-button>
@@ -44,6 +50,7 @@ Vue.use(Router)
 const router = new Router({
   routes:[
     { path: '/', component: Brand },
+    { path: '/index', redirect:"/" },
     { path: '/series', component: Series },
     { path: '/year', component: Year },
     { path: '/config', component: Config },
@@ -52,16 +59,26 @@ const router = new Router({
 export default {
     data() {
       return {
-        step:0,
+        /* step:0, */
+        current:this.step,
+        prevId:"",
+        temp:"",
         car:{
           brand:'',
           series:'',
           year:'',
           config:''
         },
+        index:{
+          brand:'',
+          series:'',
+          year:'',
+          config:''
+        },
+        
       };
     },
-    props: ['dialogVisible', 'form'],
+    props: ['dialogVisible', 'step'],
     components:{
        
     },
@@ -78,44 +95,58 @@ export default {
           this.$emit('func');
           
       }, 
-      updateCar: function (step,value) {
-         this.step = step;
+      updateCar: function (step,index,value) {
+         this.current = step;
 
          switch(step){
             case 1: {
               this.index.brand = index;
+              this.prevId = index;
               this.car.brand = value;
+              this.temp = value;
               break;
-
               }
             case 2: {
-              this.index.brand = index;
+              this.index.series = index;
+              this.prevId = index;
               this.car.series = value;
+              this.temp = this.temp + "/" +value;
               break;
               }
             case 3: {
-              this.index.brand = index;
+              this.index.year = index;
+              this.prevId = index;
               this.car.year = value;
-
+              this.temp = this.temp + "/" +value;
               break;
               }
             case 0: {
-              
+              this.index.config = index;
+              this.prevId = index;             
               this.car.config = value;
-              
+              this.temp = "";            
               break;
               }
          }
          
       },
       canclemodal: function () {
-                this.$emit('func');
-            },
+         this.$emit('func');
+      },
+      complete(){
+          var car = "当前车型:"+this.car.brand+" "+this.car.series+" "+this.car.year+" "+this.car.config;
+          this.$emit('complete',car);
+      },
+      empty(){
+        router.push("/");
+        location.reload();
+      }
     }
   };
    
 </script>
 
 <style lang='scss' scoped>
+@import "node_modules/animate.css/animate"
 
 </style>

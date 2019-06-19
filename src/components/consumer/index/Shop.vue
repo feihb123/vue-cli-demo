@@ -44,7 +44,7 @@ export default {
         }
       }).then((response) => {
           this.shops = response.data
-          console.log(response.data)  
+          /* console.log(response.data) */  
 
       }).catch(function (response) {
           console.log(response)

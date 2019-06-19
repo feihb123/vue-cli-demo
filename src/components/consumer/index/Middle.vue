@@ -38,20 +38,20 @@ export default {
     };
   },
   mounted(){
-    this.getCustomers();
+    this.getCarousel();
   },
 
   components: {},
   
   methods: {
-    getCustomers() {
+    getCarousel() {
       this.$axios.get(this.url, {
           params: {
               
           }
       }).then((response) => {
           this.photos = response.data;
-          console.log(response.data)
+          /* console.log(response.data) */
       }).catch(function (response) {
           console.log(response)
       });

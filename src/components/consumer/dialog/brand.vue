@@ -6,13 +6,13 @@
         <el-col :span="6" v-for="(item,index) in list" :key="index">
           <div>
             <router-link to="/series" style="text-decoration:none;">
-            <el-card >           
-            <el-image 
+            <el-card  >           
+            <el-image
             style="width: 120px; height: 60px"
             lazy
             :src="item.url"
             fit="cover"
-            @click="select(item.name)"
+            @click="select(item)"
             >
             <!-- 未加载完成占位符 -->
             <!-- <div slot="placeholder" class="image-slot">
@@ -88,32 +88,49 @@ export default {
         title: [{ required: true, trigger: 'change', validator: validate }],
          },
         list:[
-          {id:1,url:"/api/upload/brand/benchi.png",name:"奔驰"},
+          /* {id:1,url:"/api/upload/brand/benchi.png",name:"奔驰"},
           {id:2,url:"/api/upload/brand/bmw.png",name:"宝马"},
           {id:3,url:"/api/upload/brand/aodi.png",name:"奥迪"},
           {id:4,url:"/api/upload/brand/dazhong.png",name:"大众"},
           {id:5,url:"/api/upload/brand/haval.png",name:"哈弗"},
           {id:6,url:"/api/upload/brand/bentian.png",name:"本田"},
           {id:7,url:"/api/upload/brand/maz.png",name:"马自达"},
-          {id:8,url:"/api/upload/brand/ford.png",name:"福特"},
+          {id:8,url:"/api/upload/brand/ford.png",name:"福特"}, */
           ],
+        index:'',
         brand:'',
+        url:'/api/car/brand',
+        loading:true,
     };
   },
-
+  mounted(){
+    this.getBrands();
+    this.loading = false;
+  },
   components: {
     MdInput,Mallki
   },
 
   methods: {
       next(){       
-        this.$emit('updateCar',1,this.brand);
+        this.$emit('updateCar',1,this.index,this.brand);
       },
-      select(name){
-        /* console.log(name) */
-        this.brand = name;
+      select(item){
+        this.index = item.id;
+        this.brand = item.name;
         this.next();
-      }
+      },
+      getBrands() {
+      this.$axios.get(this.url, {
+          params: {
+              
+          }
+      }).then((response) => {
+          this.list = response.data;          
+      }).catch(function (response) {
+          console.log(response)
+      });
+    },
   }
 }
 

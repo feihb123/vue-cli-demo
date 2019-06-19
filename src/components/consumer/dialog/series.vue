@@ -4,13 +4,17 @@
       <el-row :gutter="20">
         <el-col :span="6" v-for="(item,index) in list" :key="index" >
           <div>
-            <!-- <router-link to="/year" style="text-decoration:none;" > -->     
+            
             <el-card >
-            <div @click="select(item.id)" >
-            <font >{{item.name}}</font>   
-            </div>
+              <router-link to="/year" style="text-decoration:none;" >
+                <div @click="select(item)" style="width:100%,height:100%" class="choose">                    
+                    <font >
+                      {{item.name}}
+                    </font>                   
+                </div>
+               </router-link> 
             </el-card>
-            <!-- </router-link> -->
+            
           </div>        
       </el-col>
       </el-row>
@@ -18,24 +22,26 @@
       <el-row :gutter="20">
         <el-col :span="8" >
           <router-link to="/" id="left">
-          <el-button type="info" icon="el-icon-arrow-left" plain>上 一 步</el-button>
+           <el-button type="info" icon="el-icon-arrow-left" plain @click="prevStep">上 一 步</el-button>
           </router-link>
         </el-col>
         <el-col :span="8" >
           <div style="margin-top:8px">          
-          <font>选择您的车系</font>          
+            <font>选择您的车系</font>          
           </div>
         </el-col>
         <el-col :span="8" >
           <div style="margin-top:8px">
-          <font> 
-            <i class="el-icon-finished" style="zoom:140%"></i> {{prev}}
-          </font>
-          <router-link to="/" id="right">
-            <el-tooltip content="Top center" placement="清空选择">
-              <el-button type="default" icon="el-icon-close" circle style="zoom:75%"></el-button>
-            </el-tooltip>
-          </router-link>
+            <font> 
+              <i class="el-icon-finished" style="zoom:140%"></i> {{prevContent}}
+            </font>
+            <router-link to="/" id="right">
+              <el-tooltip content="Top center" placement="清空选择">
+                <el-button type="default" icon="el-icon-close" circle style="zoom:75%"
+                @click="clear"
+                ></el-button>
+              </el-tooltip>
+            </router-link>
           </div>
 
         </el-col>
@@ -52,11 +58,11 @@
 
 <script>
 export default {
-  name:'',
+  name:'Series',
   data () {
     return {
          list:[
-          {id:1,name:"1系(国产)"},
+          /* {id:1,name:"1系(国产)"},
           {id:2,name:"2系(国产)"},
           {id:3,name:"3系(国产)"},
           {id:5,name:"5系(国产)"},
@@ -64,25 +70,49 @@ export default {
           {id:7,name:"2系(进口)"},
           {id:8,name:"3系(进口)"},
           {id:8,name:"3系(进口)"},
-          {id:8,name:"3系(进口)"},
+          {id:8,name:"3系(进口)"}, */
 
           ],
+        index:"",
         series:"",
-        prev:"宝马 ",
+        url:"/api/car/series/"+this.prevId,
+        loading:true,
     };
+    
   },
-
+  props:["prevId","prevContent"],
   components: {},
 
+  mounted(){
+    this.getSeries();
+    this.loading = false;
+  },
+
   methods: {
-      next(){
-        this.$emit('updateCar',2);
+      prevStep(){
+        this.$emit('updateCar',0);
       },
-      select(id){
-        alert("id")
-        this.series = id;
+      next(){
+        this.$emit('updateCar',2,this.index,this.series);
+      },
+      select(item){
+        this.index = item.id;
+        this.series = item.name;
         this.next();
-      }
+      },
+      clear(){
+        this.$emit('updateCar',0);
+       
+      },
+      getSeries() {
+      this.$axios.get(this.url, {
+          params: {}
+        }).then((response) => {
+            this.list = response.data;          
+        }).catch(function (response) {
+            console.log(response)
+        });
+      },
     }
 }
 
@@ -93,7 +123,7 @@ export default {
     float: right;
 
 }
-.el-card:hover{
+.choose:hover{
   cursor: pointer;
 }
 .el-col{
