@@ -82,10 +82,29 @@ export default {
          this.step = step;
 
          switch(step){
-            case 1: {this.car.brand = value;break;}
-            case 2: {this.car.series = value;break;}
-            case 3: {this.car.year = value;break;}
-            case 0: {this.car.config = value;break;}
+            case 1: {
+              this.index.brand = index;
+              this.car.brand = value;
+              break;
+
+              }
+            case 2: {
+              this.index.brand = index;
+              this.car.series = value;
+              break;
+              }
+            case 3: {
+              this.index.brand = index;
+              this.car.year = value;
+
+              break;
+              }
+            case 0: {
+              
+              this.car.config = value;
+              
+              break;
+              }
          }
          
       },
