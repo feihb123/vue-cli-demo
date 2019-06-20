@@ -20,6 +20,7 @@
             :prevId = "prevId"
             :prevContent = "temp"
             @updateCar="updateCar" 
+            @back="back" 
             @close="canclemodal"
             @complete="complete"           
             ></router-view>
@@ -128,6 +129,27 @@ export default {
               break;
               }
          }
+      },
+      back: function (step) { 
+            this.current = step;
+            switch(step){
+              case 0:{
+                this.temp = "";
+                break;
+              }
+              case 1:{
+                var temp = this.temp.split("/")[0];
+                this.temp = temp;
+                this.prevId = this.index.brand;
+                break;
+              }
+              case 2:{
+                var temp = this.temp.split("/")[0]+"/"+this.temp.split("/")[1];
+                this.temp = temp;
+                this.prevId = this.index.series;
+                break;
+              }
+            }
          
       },
       canclemodal: function () {

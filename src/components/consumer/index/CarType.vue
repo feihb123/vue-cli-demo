@@ -106,7 +106,7 @@ export default {
         opacity: 0.9;
         margin: 0 auto;
         height: 50px;
-        width: 76%;
+        width: 1150px;
         border-radius: 10px
     }
 </style>

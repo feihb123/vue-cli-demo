@@ -69,8 +69,7 @@ export default {
   },
   methods: {
        prevStep(){
-        alert("perv")
-        this.$emit('updateCar',2);
+        this.$emit('back',2);
       },
       next(){
         this.$emit('updateCar',0,this.index,this.config);

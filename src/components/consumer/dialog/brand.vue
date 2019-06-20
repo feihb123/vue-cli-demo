@@ -38,7 +38,10 @@
               <el-row>
                 <el-col :span="12">
                   <el-form-item prop="title">
-                   <md-input v-model="demo.title" icon="search" name="title" placeholder="请输入拼音首字母">
+                   <md-input v-model="demo.title" icon="search" 
+                   name="title" placeholder="请输入拼音首字母"
+                   @input="input"
+                   >
                   搜索品牌
                   </md-input>
               </el-form-item>
@@ -70,12 +73,13 @@
 import MdInput from '@/components/MDinput'
 import Mallki from '@/components/TextHoverEffect/Mallki.vue'
 
+
 export default {
   name:'brand',
   data () {
     const validate = (rule, value, callback) => {
       if (value.length !== 0) {
-        callback(new Error('请输入拼音首字母'))
+        callback(/* new Error('请输入拼音首字母') */)
       } else {
         callback()
       }
@@ -104,9 +108,11 @@ export default {
     };
   },
   mounted(){
-    this.getBrands();
-    this.loading = false;
+    this.getBrands();   
   },
+/*   updated(){
+    this.loading = false;
+  }, */
   components: {
     MdInput,Mallki
   },
@@ -120,6 +126,20 @@ export default {
         this.brand = item.name;
         this.next();
       },
+      input(value){
+        
+        this.$axios.get("/api/car/spell", {
+            params: {
+                value:value,
+            }
+        }).then((response) => {
+            this.list = response.data;          
+        }).catch(function (response) {
+            console.log(response)
+        });
+
+      },
+      
       getBrands() {
       this.$axios.get(this.url, {
           params: {

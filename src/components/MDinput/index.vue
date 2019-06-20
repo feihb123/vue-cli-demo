@@ -167,16 +167,19 @@ export default {
   },
   methods: {
     handleModelInput(event) {
+      //输入进行操作
       const value = event.target.value
+      /* console.log(value) */
       this.$emit('input', value)
-      if (this.$parent.$options.componentName === 'ElFormItem') {
+      /* if (this.$parent.$options.componentName === 'ElFormItem') {
         if (this.validateEvent) {
           this.$parent.$emit('el.form.change', [value])
         }
       }
-      this.$emit('change', value)
+      this.$emit('change', value) */
     },
     handleMdFocus(event) {
+      //获得焦点操作
       this.focus = true
       this.$emit('focus', event)
       if (this.placeholder && this.placeholder !== '') {
@@ -184,6 +187,7 @@ export default {
       }
     },
     handleMdBlur(event) {
+      //失去焦点操作
       this.focus = false
       this.$emit('blur', event)
       this.fillPlaceHolder = null

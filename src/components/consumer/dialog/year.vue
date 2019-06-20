@@ -65,8 +65,7 @@ export default {
   },
   methods: {
       prevStep(){
-
-        this.$emit('updateCar',1);
+        this.$emit('back',1);
       },
       next(){
         this.$emit('updateCar',3,this.index,this.year);

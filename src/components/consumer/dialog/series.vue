@@ -90,7 +90,7 @@ export default {
 
   methods: {
       prevStep(){
-        this.$emit('updateCar',0);
+        this.$emit('back',0);
       },
       next(){
         this.$emit('updateCar',2,this.index,this.series);
