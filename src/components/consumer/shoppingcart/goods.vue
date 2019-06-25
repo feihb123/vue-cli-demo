@@ -1,0 +1,223 @@
+<!-- 具体商品部分 -->
+<template>
+  <div>
+    <el-row style="margin-bottom:5px">
+      <el-col :span="8">
+        <i class="el-icon-shopping-cart-2" style="zoom:250%"></i>
+        <font size="4">购物车</font>
+      </el-col>
+      <el-col :span="3" :offset="8">
+        <i class="el-icon-check" style="zoom:250%"></i>
+        <font size="4">已选商品 </font>
+        <font size="4" color="#FF7256">￥{{total}}</font>
+      </el-col>
+      <el-col :span="1" >
+        <el-button type="danger" @click="btn">结算商品</el-button>
+      </el-col>
+    </el-row>
+
+    <hr style="width:75%">
+    <el-row style="margin-left:11.3% ">
+        <el-col :span="2" >
+          <el-checkbox lebel="" name="type" style="zoom:120%"
+           v-model="checkall"
+           @change="check_all()"
+           >全选</el-checkbox>
+          
+        </el-col>
+        <el-col :span="3" :offset="1">商品信息</el-col>  
+        <el-col :span="2" :offset="3">单价</el-col>
+        <el-col :span="3" >数量</el-col>
+        <el-col :span="2" >价格</el-col>
+        <el-col :span="4" >操作</el-col>
+    </el-row>
+    <br>
+
+
+    <div v-for="(item,index) in shops" :key="index" class="shops">
+    
+      <div style="margin-left:13%"> 
+        <el-row>    
+        <el-col :span="6" >
+          <el-checkbox lebel="" name="type" style="zoom:120%" 
+           v-model="item.this_all" 
+           @change="check_list(index)"
+          ></el-checkbox>
+          店铺:{{item.shopname}}
+          <i class="el-icon-chat-dot-round" style="zoom:150%"></i>  
+        </el-col> 
+        </el-row> 
+        <br>        
+      </div>
+      
+
+
+    <el-card shadow="always" class="card">
+      <el-row v-for="(goods,nindex) in item.goods" :key="nindex" style="text-align:center" >
+        <el-card shadow="hover" style="">
+        <el-col :span="1"><el-checkbox lebel="" name="type" style="zoom:120%" 
+        v-model="goods.check_one" 
+        @change="click_input(index,nindex)"
+         ></el-checkbox></el-col>
+        <el-col :span="2"><img :src="goods.photo" class="img"></el-col>
+        <el-col :span="4">{{goods.productName}}</el-col>
+        <el-col :span="3"><font color="#CDC5BF">{{goods.type}}</font></el-col>
+        <el-col :span="3">￥{{goods.price}}</el-col>
+        <el-col :span="3">
+          <el-input-number v-model="goods.amount" @change="handleChange" :min="1" :max="10" label="描述文字" style="zoom:80%"></el-input-number>
+        </el-col>
+        <el-col :span="4"><font color="#FF7256"> ￥{{goods.price*goods.amount}}</font></el-col>
+        <el-col :span="3"> <el-button type="default" icon="el-icon-delete" circle></el-button></el-col>
+      
+       </el-card>
+       <br>
+      </el-row>
+      
+    </el-card>
+    
+    </div>
+    
+  </div>
+</template>
+
+<script>
+export default {
+  name:'Goods',
+  data () {
+    return {
+        // 用于保存被选中的数据
+        checkedList: [],
+        // 正在进行中的数据是否被选中
+        checkall: false,
+        total:0.00,
+        shops:[
+          {shopname:"一汽大众",
+          goods:[
+          {id:"1",photo:"/api/img/light.jpg",productName:"大灯",price:"11",amount:"1",type:"默认",shopname:"一汽大众",check_one:true,},
+          {id:"2",photo:"/api/img/light.jpg",productName:"大灯",price:"12",amount:"2",type:"默认",shopname:"一汽大众",check_one:true,},
+          {id:"3",photo:"/api/img/light.jpg",productName:"大灯",price:"13",amount:"3",type:"默认",shopname:"一汽大众",check_one:true,},
+          {id:"4",photo:"/api/img/light.jpg",productName:"大灯大灯大灯大灯大灯大灯大灯大灯大灯大灯",price:"13",amount:"3",type:"默认",shopname:"一汽大众"},
+          ],
+          this_all:true,
+        },
+          {shopname:"一汽小众众众",id:"2",this_all:true,},
+          
+        ],
+        
+    };
+  },
+  computed:{
+     
+
+  },
+  components: {},
+
+  mounted:function(){
+      this.money();
+  },
+
+  methods: {
+    money:function(){
+      var that = this;
+      this.total= 0;
+      that.shops.forEach(item1 =>{      
+        (item1.goods || []).forEach(item2 =>{
+          if(item2.check_one==true){
+            that.total+=item2.price*item2.amount;
+          }
+        })
+      }) 
+         
+    },
+     check_all:function(){
+      var that = this;
+      that.shops.forEach(item1 => {
+        item1.this_all=that.checkall;
+        (item1.goods || []).forEach(item2 => {
+          item2.check_one=that.checkall
+        })
+      });
+      that.money();
+    },
+ 
+    abc:function(){
+      var that = this;
+        var aaa = that.shops.filter(item2 =>{
+        return item2.this_all==true
+      })
+      aaa.length==that.shops.length ? that.checkall = true : that.checkall = false
+      that.money();
+    },
+  
+    check_list:function(i){
+      var that = this;
+      that.shops[i].goods.forEach(item1 =>{
+        item1.check_one=that.shops[i].this_all
+      })
+      that.abc();
+  
+    },
+  
+    click_input:function(i,j){
+      var that = this;
+      var checklist = that.shops[i].goods.filter(item1 =>{
+        return item1.check_one==true
+      })
+      
+      checklist.length==that.shops[i].goods.length ? that.shops[i].this_all = true : that.shops[i].this_all = false
+      that.abc();
+    
+    },
+    handleChange(){
+      this.money();
+    },
+    btn:function(){
+      var that = this; 
+      
+  
+      that.checkedList=JSON.parse(JSON.stringify(that.shops));
+      that.checkedList.filter(item1 =>{
+          item1.goods = (item1.goods || []).filter(item2 =>{
+          return item2.check_one==true
+          })
+      })
+      that.checkedList=that.checkedList.filter(item3 =>{
+        return item3.goods.length!=0
+      })
+      
+      if(that.checkedList.length==0){
+        alert("请选择商品哦！")
+      }else{
+  
+        console.log("★★★您购买的商品是：");
+        that.checkedList.forEach(item4 =>{
+          console.log("----------"+item4.shopname+"店铺----------");
+          item4.goods.forEach(item5 =>{
+              console.log("——>："+item5.id);
+          })
+        })
+      }
+  }
+
+  }
+}
+
+</script>
+
+<style lang='scss' scoped>
+.card{
+  width: 75%;
+  margin: 0 auto;
+  
+}
+.shops{
+  margin-bottom: 20px;
+  text-align: left;
+
+  
+}
+.img{
+  width: 80px;
+  height: 80px;
+}
+</style>

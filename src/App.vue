@@ -1,18 +1,23 @@
 <template>
   <div id="app">
-    <index></index>
-
+    <navigation></navigation>
+    <!-- <index></index> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import index from './views/index.vue'
+import Navigation from './components/consumer/nav/navigation'
+import router from './router'
 
 export default {
   name: 'app',
   components: {
-    index
-  }
+    index,Navigation
+  },
+  router,
+
 }
 </script>
 

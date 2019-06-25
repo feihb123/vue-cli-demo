@@ -39,12 +39,12 @@
 <script>
 import Vue from 'vue'
 import Router from 'vue-router'
-import TypeDialog from './TypeDialog.vue'
+import TypeDialog from './typeDialog.vue'
 
 
 
 export default {
-  name:'',
+  name:'carType',
   data () {
     return {
         step:0,

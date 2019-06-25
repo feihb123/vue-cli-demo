@@ -1,27 +1,25 @@
 <!-- 主页 -->
 <template>
   <div>
-      <Navigation></Navigation>
-      <CarType></CarType>
-      <Search></Search>
-      <Middle></Middle>
+      <carType></carType>
+      <search></search>
+      <middle></middle>
       <br>
       <hot></hot>
-      <Shop></Shop>
+      <shop></shop>
       <!-- 回到顶部 -->
       <el-backtop></el-backtop>
-      <Footer></Footer>     
+      <footer></footer>     
    </div>
 </template>
 
 <script>
-import Navigation from "../components/consumer/index/Navigation.vue"
-import Search from "../components/consumer/index/Search.vue"
-import Middle from '../components/consumer/index/Middle.vue'
-import Shop from '../components/consumer/index/Shop.vue'
-import Footer from '../components/consumer/index/Footer.vue'
-import Hot from '../components/consumer/index/HotCommodity.vue'
-import CarType from '../components/consumer/index/CarType.vue'
+import Search from "../components/consumer/index/search.vue"
+import Middle from '../components/consumer/index/middle.vue'
+import Shop from '../components/consumer/index/shop.vue'
+import Footer from '../components/consumer/index/footer.vue'
+import Hot from '../components/consumer/index/hotCommodity.vue'
+import CarType from '../components/consumer/index/carType.vue'
 
 /* import Bus from '../eventBus' */
 
@@ -34,7 +32,7 @@ export default {
   },
 
   components: {
-      Navigation,Search,Middle,Shop,Footer,Hot,CarType
+     Search,Middle,Shop,Footer,Hot,CarType
   },
 
   mounted () {

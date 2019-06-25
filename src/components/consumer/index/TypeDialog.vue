@@ -58,6 +58,7 @@ const router = new Router({
   ],
 })
 export default {
+    name:'typeDialog',
     data() {
       return {
         /* step:0, */

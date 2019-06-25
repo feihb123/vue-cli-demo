@@ -85,6 +85,7 @@ export default {
 
   .image {
     width: 98%;
+    height: 180px;
     margin:  auto;
     display: block;
 
