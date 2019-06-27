@@ -26,10 +26,15 @@ export default new Router({
       component: () => import('./views/cart.vue')
     },
     {
+      path: '/confirm',
+      name: 'confirm',
+      component: () => import('./views/confirm.vue')
+    },
+    {
       path: '/test',
       name: 'test',
       // vue路由懒加载  异步加载
-      component: () => import('./components/consumer/shoppingcart/test')
+      component: () => import('./components/consumer/shoppingcart/cartoon')
     },
     
   ]

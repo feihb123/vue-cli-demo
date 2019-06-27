@@ -1,23 +1,21 @@
-<!-- 购物车页面 -->
+<!-- 结算确认页面 -->
 <template>
   <div>
-    <goods></goods>
-    <el-backtop></el-backtop>
+      <confirm></confirm>
   </div>
 </template>
 
 <script>
-import Goods from '../components/consumer/shoppingcart/goods'
-
+import Confirm from '../components/consumer/confirm/confirm'
 export default {
-  name:'cart',
+  name:'',
   data () {
     return {
     };
   },
 
   components: {
-    Goods,
+      Confirm,
   },
 
   methods: {}

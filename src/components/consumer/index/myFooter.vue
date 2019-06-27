@@ -28,7 +28,6 @@
                  Designed and Coded by 
                  <br><br>
                  <a href="https://github.com/feihb123">Herb</a>
-
                  <a href="mailto:datacharm@qq.com" class="email">Email</a>
               </div>
             </el-col>
@@ -41,7 +40,7 @@
 
 <script>
 export default {
-  name:'Footer',
+  name:'footer',
   data () {
     return {
     };

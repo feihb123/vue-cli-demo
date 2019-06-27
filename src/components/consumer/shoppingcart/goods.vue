@@ -34,7 +34,7 @@
     <br>
 
 
-    <div v-for="(item,index) in shops" :key="index" class="shops">
+    <div v-for="(item,index) in shops" :key="item.id" class="shops">
     
       <div style="margin-left:13%"> 
         <el-row>    
@@ -53,26 +53,35 @@
 
 
     <el-card shadow="always" class="card">
-      <el-row v-for="(goods,nindex) in item.goods" :key="nindex" style="text-align:center" >
-        <el-card shadow="hover" style="">
+      <transition-group name="list-complete" tag="p">
+      <el-row v-for="(goods,nindex) in item.goods" :key="goods.sid" style="text-align:center" class="list-complete-item">
+        <el-card shadow="hover" class="animated fadeInUp ">
         <el-col :span="1"><el-checkbox lebel="" name="type" style="zoom:120%" 
         v-model="goods.check_one" 
         @change="click_input(index,nindex)"
          ></el-checkbox></el-col>
-        <el-col :span="2"><img :src="goods.photo" class="img"></el-col>
-        <el-col :span="4">{{goods.productName}}</el-col>
-        <el-col :span="3"><font color="#CDC5BF">{{goods.type}}</font></el-col>
-        <el-col :span="3">￥{{goods.price}}</el-col>
+        <el-col :span="2"><img :src="'/api'+goods.photo" class="img"></el-col>
+        <el-col :span="4"><br>{{goods.productName}}</el-col>
         <el-col :span="3">
-          <el-input-number v-model="goods.amount" @change="handleChange" :min="1" :max="10" label="描述文字" style="zoom:80%"></el-input-number>
+          <br>
+          <i class="el-icon-trophy" ></i>
+          <font color="#CDC5BF">
+          易配无忧
+          
+          </font>
         </el-col>
-        <el-col :span="4"><font color="#FF7256"> ￥{{goods.price*goods.amount}}</font></el-col>
-        <el-col :span="3"> <el-button type="default" icon="el-icon-delete" circle></el-button></el-col>
-      
+        <el-col :span="3"><br>￥{{goods.price}}</el-col>
+        <el-col :span="3">
+          <br><el-input-number v-model="goods.amount" @change="handleChange" :min="1" :max="99" label="数量" style="zoom:80%"></el-input-number>
+        </el-col>
+        <el-col :span="4"><br><font color="#FF7256"> ￥{{goods.price*goods.amount}}</font></el-col>
+        <el-col :span="3"> 
+          <el-button type="default" icon="el-icon-delete" circle style="margin-top:12px" @click="remove(index,nindex)" ></el-button>
+        </el-col>
        </el-card>
        <br>
       </el-row>
-      
+      </transition-group>
     </el-card>
     
     </div>
@@ -91,19 +100,20 @@ export default {
         checkall: false,
         total:0.00,
         shops:[
-          {shopname:"一汽大众",
+          /* {shopname:"一汽大众",
           goods:[
           {id:"1",photo:"/api/img/light.jpg",productName:"大灯",price:"11",amount:"1",type:"默认",shopname:"一汽大众",check_one:true,},
           {id:"2",photo:"/api/img/light.jpg",productName:"大灯",price:"12",amount:"2",type:"默认",shopname:"一汽大众",check_one:true,},
           {id:"3",photo:"/api/img/light.jpg",productName:"大灯",price:"13",amount:"3",type:"默认",shopname:"一汽大众",check_one:true,},
-          {id:"4",photo:"/api/img/light.jpg",productName:"大灯大灯大灯大灯大灯大灯大灯大灯大灯大灯",price:"13",amount:"3",type:"默认",shopname:"一汽大众"},
+          {id:"4",photo:"/api/img/light.jpg",productName:"大灯",price:"13",amount:"3",type:"默认",shopname:"一汽大众"},
           ],
           this_all:true,
         },
-          {shopname:"一汽小众众众",id:"2",this_all:true,},
+          {shopname:"一汽小众众众",id:"2",this_all:true,}, */
           
         ],
-        
+        selectedShop:[],
+        url:"/api/cart/",
     };
   },
   computed:{
@@ -113,7 +123,18 @@ export default {
   components: {},
 
   mounted:function(){
-      this.money();
+
+      this.$axios.get(this.url,{
+        param:{
+          
+        }
+      }).then((response) => {
+          this.shops = response.data
+
+      }).catch(function (response) {
+          console.log(response)
+      });
+
   },
 
   methods: {
@@ -171,10 +192,11 @@ export default {
     handleChange(){
       this.money();
     },
+    remove(index,nindex){
+      this.shops[index].goods.splice(nindex,1)
+    },
     btn:function(){
       var that = this; 
-      
-  
       that.checkedList=JSON.parse(JSON.stringify(that.shops));
       that.checkedList.filter(item1 =>{
           item1.goods = (item1.goods || []).filter(item2 =>{
@@ -186,16 +208,32 @@ export default {
       })
       
       if(that.checkedList.length==0){
-        alert("请选择商品哦！")
+         
+        this.$message({
+          message: '您还没有选择商品',
+          type: 'warning'
+        });
+      
       }else{
   
-        console.log("★★★您购买的商品是：");
+        /* console.log("★★★您购买的商品是：");
         that.checkedList.forEach(item4 =>{
           console.log("----------"+item4.shopname+"店铺----------");
           item4.goods.forEach(item5 =>{
               console.log("——>："+item5.id);
           })
+        }) */
+
+        //取出选择的商店
+        that.checkedList.forEach(item4 =>{
+            this.selectedShop.push(item4);
         })
+
+        this.$router.push(
+            {name:"confirm",
+            params:{shops:this.selectedShop,total:this.total}
+            }
+          )
       }
   }
 
@@ -205,6 +243,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+@import "node_modules/animate.css/animate";
+
 .card{
   width: 75%;
   margin: 0 auto;
@@ -219,5 +259,23 @@ export default {
 .img{
   width: 80px;
   height: 80px;
+}
+.el-icon-trophy{
+  color: #FF7256;
+}
+.el-icon-chat-dot-round{
+  color:skyblue;
+}
+//列表增删动画
+.list-complete-item {
+  transition: all 2s;
+}
+.list-complete-enter, .list-complete-leave-to
+{
+  opacity: 0;
+  transform: translateX(300px);
+}
+.list-complete-leave-active {
+  position: absolute;
 }
 </style>
