@@ -25,10 +25,10 @@
                 <el-submenu index="2">
                   <template slot="title" id="order">我的订单</template>
                   <el-menu-item index="2-1"  @click="skip('orders')">全部订单</el-menu-item>
-                  <el-menu-item index="2-2"  @click="skip('waitpay')">待付款</el-menu-item>
-                  <el-menu-item index="2-3"  @click="skip('waitdeliver')">代发货</el-menu-item>
-                  <el-menu-item index="2-4"  @click="skip('waitconfirm')">待收货</el-menu-item>
-                  <el-menu-item index="2-5"  @click="skip('waitevaluate')">待评价</el-menu-item>
+                  <el-menu-item index="2-2"  @click="skip('waitPay')">待付款</el-menu-item>
+                  <el-menu-item index="2-3"  @click="skip('waitDeliver')">代发货</el-menu-item>
+                  <el-menu-item index="2-4"  @click="skip('waitConfirm')">待收货</el-menu-item>
+                  <el-menu-item index="2-5"  @click="skip('waitEvaluate')">待评价</el-menu-item>
                   <!-- 二级菜单
                   <el-submenu index="2-4">
                     <template slot="title">选项4</template>
@@ -75,7 +75,7 @@ export default {
     methods: {
       handleSelect(key, keyPath) {
         this.activeIndex = key;
-        console.log(key, keyPath);
+        /* console.log(key, keyPath); */
       },
       skip(url){
         this.$router.push(url);

@@ -147,4 +147,7 @@ export default {
 .el-icon-star-off{
   color: #FF7256;
 }
+.el-icon-s-shop{
+  color:#FF7256;  
+}
 </style>

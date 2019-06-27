@@ -6,7 +6,7 @@
         <i class="el-icon-shopping-cart-2" style="zoom:250%"></i>
         <font size="4">购物车</font>
       </el-col>
-      <el-col :span="3" :offset="8">
+      <el-col :span="4" :offset="7">
         <i class="el-icon-check" style="zoom:250%"></i>
         <font size="4">已选商品 </font>
         <font size="4" color="#FF7256">￥{{total}}</font>
@@ -35,7 +35,6 @@
 
 
     <div v-for="(item,index) in shops" :key="item.id" class="shops">
-    
       <div style="margin-left:13%"> 
         <el-row>    
         <el-col :span="6" >
@@ -50,41 +49,35 @@
         <br>        
       </div>
       
-
-
-    <el-card shadow="always" class="card">
-      <transition-group name="list-complete" tag="p">
-      <el-row v-for="(goods,nindex) in item.goods" :key="goods.sid" style="text-align:center" class="list-complete-item">
-        <el-card shadow="hover" class="animated fadeInUp ">
-        <el-col :span="1"><el-checkbox lebel="" name="type" style="zoom:120%" 
-        v-model="goods.check_one" 
-        @change="click_input(index,nindex)"
-         ></el-checkbox></el-col>
-        <el-col :span="2"><img :src="'/api'+goods.photo" class="img"></el-col>
-        <el-col :span="4"><br>{{goods.productName}}</el-col>
-        <el-col :span="3">
-          <br>
-          <i class="el-icon-trophy" ></i>
-          <font color="#CDC5BF">
-          易配无忧
-          
-          </font>
-        </el-col>
-        <el-col :span="3"><br>￥{{goods.price}}</el-col>
-        <el-col :span="3">
-          <br><el-input-number v-model="goods.amount" @change="handleChange" :min="1" :max="99" label="数量" style="zoom:80%"></el-input-number>
-        </el-col>
-        <el-col :span="4"><br><font color="#FF7256"> ￥{{goods.price*goods.amount}}</font></el-col>
-        <el-col :span="3"> 
-          <el-button type="default" icon="el-icon-delete" circle style="margin-top:12px" @click="remove(index,nindex)" ></el-button>
-        </el-col>
-       </el-card>
-       <br>
-      </el-row>
-      </transition-group>
-    </el-card>
-    
-    </div>
+      <el-card shadow="always" class="card">
+        <transition-group name="list-complete" tag="p">
+        <el-row v-for="(goods,nindex) in item.goods" :key="goods.sid" style="text-align:center" class="list-complete-item">
+          <el-card shadow="hover" class="animated fadeInUp ">
+          <el-col :span="1"><el-checkbox lebel="" name="type" style="zoom:120%" 
+          v-model="goods.check_one" 
+          @change="click_input(index,nindex)"
+          ></el-checkbox></el-col>
+          <el-col :span="2"><img :src="'/api'+goods.photo" class="img"></el-col>
+          <el-col :span="4"><br>{{goods.productName}}</el-col>
+          <el-col :span="3">
+            <br>
+            <i class="el-icon-trophy" ></i>
+            <font color="#CDC5BF">易配无忧</font>
+          </el-col>
+          <el-col :span="3"><br>￥{{goods.price}}</el-col>
+          <el-col :span="3">
+            <br><el-input-number v-model="goods.amount" @change="handleChange" :min="1" :max="99" label="数量" style="zoom:80%"></el-input-number>
+          </el-col>
+          <el-col :span="4"><br><font color="#FF7256"> ￥{{goods.price*goods.amount}}</font></el-col>
+          <el-col :span="3"> 
+            <el-button type="default" icon="el-icon-delete" circle style="margin-top:12px" @click="remove(index,nindex)" ></el-button>
+          </el-col>
+        </el-card>
+        <br>
+        </el-row>
+        </transition-group>
+      </el-card>  
+   </div>
     
   </div>
 </template>
@@ -140,11 +133,14 @@ export default {
   methods: {
     money:function(){
       var that = this;
-      this.total= 0;
+      that.total= 0;
       that.shops.forEach(item1 =>{      
         (item1.goods || []).forEach(item2 =>{
-          if(item2.check_one==true){
+          if(item2.check_one == true){
             that.total+=item2.price*item2.amount;
+            //防止浮点数运算出现多位小数
+            that.total.toFixed(2);
+            
           }
         })
       }) 
@@ -193,7 +189,12 @@ export default {
       this.money();
     },
     remove(index,nindex){
-      this.shops[index].goods.splice(nindex,1)
+      this.shops[index].goods.splice(nindex,1);
+      var checklist = this.shops[index].goods;
+      if(checklist.length == 0) {
+        this.shops.splice(index,1);
+      } 
+      this.money();
     },
     btn:function(){
       var that = this; 
@@ -278,4 +279,5 @@ export default {
 .list-complete-leave-active {
   position: absolute;
 }
+
 </style>

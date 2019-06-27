@@ -31,10 +31,20 @@ export default new Router({
       component: () => import('./views/confirm.vue')
     },
     {
+      path: '/paySuccess',
+      name: 'paySuccess',
+      component: () => import('./views/paySuccess.vue')
+    },
+    {
+      path: '/waitDeliver',
+      name: 'waitDeliver',
+      component: () => import('./views/order/waitDeliver.vue')
+    },
+    {
       path: '/test',
       name: 'test',
       // vue路由懒加载  异步加载
-      component: () => import('./components/consumer/shoppingcart/cartoon')
+      component: () => import('./components/test/cartoon')
     },
     
   ]
