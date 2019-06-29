@@ -1,6 +1,6 @@
-<!-- 代发货订单 -->
+<!-- 待发货订单 -->
 <template>
-  <div>
+  <div  v-loading="loading" :element-loading-text="loadingText">
       <list :shops="shops"></list>
   </div>
 </template>
@@ -24,17 +24,20 @@ export default {
             ],
             total:0,
           }
-        ]
+        ],
+        loading:true,
+        loadingText:"拼命加载中",   
     };
   },
   mounted(){
     this.$axios.get("/api/order/waitDeliver",{
       prarm:{}
     }).then((response) => {
-      this.shops = response.data
+      this.shops = response.data;
+      this.loading = false;
       }
-    ).catch(function (response) {
-          console.log(response)
+    ).catch((response) => {
+      this.loadingText = "服务器好像遇到了问题:"+response;
     });
 
 

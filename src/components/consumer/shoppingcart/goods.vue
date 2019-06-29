@@ -1,14 +1,17 @@
 <!-- 具体商品部分 -->
 <template>
-  <div>
+  <div v-loading="loading" 
+  :element-loading-text="loadingText" 
+  v-infinite-scroll="load" 
+  >
     <el-row style="margin-bottom:5px">
       <el-col :span="8">
-        <i class="el-icon-shopping-cart-2" style="zoom:250%"></i>
+        <img src="@/image/sale.png" style="height:40px;margin-left:50px">
         <font size="4">购物车</font>
       </el-col>
-      <el-col :span="4" :offset="7">
-        <i class="el-icon-check" style="zoom:250%"></i>
-        <font size="4">已选商品 </font>
+      <el-col :span="4" :offset="7" >
+        <font size="6" ></font>
+        <font size="3" >已选商品 </font>
         <font size="4" color="#FF7256">￥{{total}}</font>
       </el-col>
       <el-col :span="1" >
@@ -16,7 +19,7 @@
       </el-col>
     </el-row>
 
-    <hr style="width:75%">
+    <hr style="width:75%;">
     <el-row style="margin-left:11.3% ">
         <el-col :span="2" >
           <el-checkbox lebel="" name="type" style="zoom:120%"
@@ -34,7 +37,7 @@
     <br>
 
 
-    <div v-for="(item,index) in shops" :key="item.id" class="shops">
+    <div v-for="(item,index) in shops" :key="item.id" class="shops" >
       <div style="margin-left:13%"> 
         <el-row>    
         <el-col :span="6" >
@@ -78,11 +81,15 @@
         </transition-group>
       </el-card>  
    </div>
-    
+
+  <p v-if="loading">加载中...</p>
+  <p v-if="noMore">没有更多了</p>
+
   </div>
 </template>
 
 <script>
+import { stat } from 'fs';
 export default {
   name:'Goods',
   data () {
@@ -106,7 +113,12 @@ export default {
           
         ],
         selectedShop:[],
-        url:"/api/cart/",
+        url:"/api/cart",
+        loading:true,
+        loadingText:"拼命加载中",
+        start:0,
+        pageSize:4,
+        noMore:false,  
     };
   },
   computed:{
@@ -117,20 +129,43 @@ export default {
 
   mounted:function(){
 
-      this.$axios.get(this.url,{
+      /* this.$axios.get(this.url+"/"+this.start+"/"+this.pageSize,{
         param:{
           
         }
       }).then((response) => {
           this.shops = response.data
-
-      }).catch(function (response) {
-          console.log(response)
-      });
+          this.loading = false;
+      }).catch((response) => {
+          this.loadingText = "服务器好像遇到了问题:"+response;
+      }); */
 
   },
 
   methods: {
+    load () {
+      //无限滚动触发
+      
+      if(!this.noMore){
+        
+        console.log("请求"+this.start+"--"+this.pageSize)
+        this.$axios.get(this.url+"/"+this.start+"/"+this.pageSize,{
+          }).then((response) => {
+              // x.push(...xxx)  在x数组后添加另一个数组xxx
+              if(response.data.length != 0 ){
+                this.shops.push(...response.data);
+                this.loading = false;               
+              }else{
+                this.noMore = true;
+              }
+                          
+          }).catch((response) => {
+              this.loadingText = "服务器好像遇到了问题:"+response;
+          });
+       this.start += 4;
+      }
+      
+    },
     money:function(){
       var that = this;
       that.total= 0;
@@ -138,9 +173,8 @@ export default {
         (item1.goods || []).forEach(item2 =>{
           if(item2.check_one == true){
             that.total+=item2.price*item2.amount;
-            //防止浮点数运算出现多位小数
-            that.total.toFixed(2);
-            
+            //防止浮点数运算出现多位小数 
+            that.total = parseFloat(that.total.toFixed(2));
           }
         })
       }) 
@@ -236,6 +270,7 @@ export default {
             }
           )
       }
+      
   }
 
   }
@@ -267,6 +302,7 @@ export default {
 .el-icon-chat-dot-round{
   color:skyblue;
 }
+
 //列表增删动画
 .list-complete-item {
   transition: all 2s;

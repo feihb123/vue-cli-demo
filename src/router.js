@@ -20,6 +20,12 @@ export default new Router({
       redirect: '/'
     },
     {
+      path: '/test',
+      name: 'test',
+      // vue路由懒加载  异步加载
+      component: () => import('./components/test/infiniteScroll')
+    },
+    {
       path: '/cart',
       name: 'cart',
       // vue路由懒加载  异步加载
@@ -36,16 +42,36 @@ export default new Router({
       component: () => import('./views/paySuccess.vue')
     },
     {
+      path: '/orders',
+      name: 'orders',
+      component: () => import('./views/order/allOrders.vue')
+    },
+    {
       path: '/waitDeliver',
       name: 'waitDeliver',
       component: () => import('./views/order/waitDeliver.vue')
     },
     {
-      path: '/test',
-      name: 'test',
-      // vue路由懒加载  异步加载
-      component: () => import('./components/test/cartoon')
+      path: '/waitPay',
+      name: 'waitPay',
+      component: () => import('./views/order/waitPay.vue')
     },
+    {
+      path: '/waitConfirm',
+      name: 'waitConfirm',
+      component: () => import('./views/order/waitConfirm.vue')
+    },
+    {
+      path: '/waitEvaluate',
+      name: 'waitEvaluate',
+      component: () => import('./views/order/waitEvaluate.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/login.vue')
+    },
+    
     
   ]
 })

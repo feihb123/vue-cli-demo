@@ -1,5 +1,4 @@
 module.exports = {
-    
     devServer: {
 
         // 当你请求是以/api开头的时候，则我帮你代理访问到http://localhost:3000
@@ -21,5 +20,7 @@ module.exports = {
             }
         },
         before: app => { }
-    }
+    },
+
+    runtimeCompiler: true
 }

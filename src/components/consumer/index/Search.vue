@@ -52,11 +52,11 @@
                 <!-- 需要加slot="reference"才生效 -->
                 <div class="demo-image" slot="reference">
               
-                <el-image 
+                <img
                 style="width: 80px; height: 80px"
-                src="/api/img/account.jpg"
-                :fit="fit">
-                </el-image>  
+                src="@/image/account.jpg"
+                />
+                 
 
             </div>
             </el-popover>

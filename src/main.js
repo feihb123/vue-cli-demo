@@ -4,10 +4,13 @@ import router from './router'
 import axios from 'axios'
 import './plugins/element.js'
 import './assets/element-variables.scss'
+import infiniteScroll from 'vue-infinite-scroll'
 
+Vue.use(infiniteScroll)
 Vue.config.productionTip = false
 // this.$axios.get(url,{}).then((response) => {})
 Object.defineProperty(Vue.prototype, '$axios', { value: axios });
+
 
 new Vue({
   router,
