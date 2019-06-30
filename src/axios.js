@@ -42,8 +42,9 @@ export default {
 	delUser(data) {
 		return instance.post('/api/delUser', data)
 	},
+	//获取用户头像
 	getUserPortrait(data) {
-		return instance.get('/api/delUser', data)
+		return instance.get('/api/getUserPortrait', data)
 	},
 
 }

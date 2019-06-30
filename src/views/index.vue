@@ -34,9 +34,7 @@ export default {
   components: {
      Search,Middle,Shop,Hot,CarType,MyFooter,
   },
-
-  mounted () {
-        },
+    
 
   methods: {
    

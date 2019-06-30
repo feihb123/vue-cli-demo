@@ -13,6 +13,11 @@ const mutations = {
 	[types.USERNAME]: (state, data) => {
 		localStorage.setItem('username', data)
 		state.username = data
-	}
+	},
+	[types.USERPORTRAIT]:(state, data) => {
+		localStorage.setItem('portrait', data)
+		state.portrait = data
+	},
+
 }
 export default mutations

@@ -42,15 +42,16 @@
                 <el-menu-item index="4" @click="skip('appointment')">预约</el-menu-item>
                 <el-menu-item index="5" @click="skip('diy')">个性定制</el-menu-item>
                 <el-menu-item index="6"  style="width:80px;color:#0000EE"
-                 v-if="username == '' "   @click="skip('login')">登录{{username}}</el-menu-item>
+                 v-if="username == '' "   @click="skip('login')">登录</el-menu-item>
                 <el-menu-item index="6"  style="width:80px;color:#0000EE;" 
-                 v-else  @click="skip('logout')">注销</el-menu-item>
+                 v-else  @click="logOut">注销</el-menu-item>
                 <el-submenu index="7"   >
                   <template slot="title" id="photo">
-                    <img v-if="username == '' " :src="photo" class="photo">
+                    <img v-if="username == '' " src="/api/img/default.jpg" class="photo">
                     <img v-else :src="photo" class="photo">
                   </template>
-
+                  <el-menu-item index="7-2" >{{username}}</el-menu-item>
+                  <el-menu-item index="7-3" >{{photo}}</el-menu-item>
                   <el-menu-item index="7-1"  @click="skip('personal')">个人信息</el-menu-item>
                 </el-submenu>
                 
@@ -65,25 +66,22 @@
 </template>
 
 <script>
-
+import api from "@/axios"
 
 export default {
     name:'Navigation',
     data() {
       return {
         activeIndex: '1',
-        photo:'/api/img/default.jpg',
-        
       };
     },
-    mounted(){
-       if(this.username != ""){
-         this.photo
-       }
-    },
+    
     computed:{
       username(){
         return this.$store.state.username;
+      },
+      photo(){
+        return this.$store.state.portrait;
       }
     },
     methods: {
@@ -94,6 +92,13 @@ export default {
       skip(url){
         this.$router.push(url);
       },
+      logOut(){
+        this.$store.dispatch('UserLogin',"");
+        this.$store.dispatch('UserName', "");
+        this.$store.dispatch('UserPortrait', "");
+
+        this.$router.push("login");
+      }
     }
 }
 

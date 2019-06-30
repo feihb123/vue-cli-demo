@@ -101,8 +101,10 @@ export default {
                                 type: 'success',
                                 message: '登录成功'
                             })
+                            
                             this.$store.dispatch('UserLogin', response.data.token)
                             this.$store.dispatch('UserName', response.data.username)
+                            this.$store.dispatch('UserPortrait', response.data.headPortrait);
                             let redirect = decodeURIComponent(this.$route.query.redirect || '/');
                             
                             

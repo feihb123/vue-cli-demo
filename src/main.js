@@ -7,7 +7,7 @@ import './assets/element-variables.scss'
 import infiniteScroll from 'vue-infinite-scroll'
 import store from "./store"
 
-
+Vue.use(infiniteScroll)
 Vue.config.productionTip = false
 // this.$axios.get(url,{}).then((response) => {})
 Object.defineProperty(Vue.prototype, '$axios', { value: axios });
@@ -17,6 +17,16 @@ new Vue({
   router,
   store,
   axios,
-  infiniteScroll,
+  created(){
+    if(localStorage.getItem("token") != null){
+      this.$store.dispatch('UserLogin', localStorage.getItem("token"));
+    }
+    if(localStorage.getItem("username") != null){
+      this.$store.dispatch('UserName', localStorage.getItem("username"));
+    }
+    if(localStorage.getItem("portrait") != null){
+      this.$store.dispatch('UserPortrait', localStorage.getItem("portrait"));
+    }
+  },
   render: h => h(App)
 }).$mount('#app')
