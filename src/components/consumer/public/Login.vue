@@ -37,8 +37,10 @@
 
 <script>
 import Register from './Register.vue'
-/* import * as types from '../store/types'
-import api from '../axios' */
+import * as types from '@/store/types'
+import api from '@/axios'
+
+
 export default {
     name: 'login',
     data() {
@@ -47,14 +49,16 @@ export default {
                 email: '',
                 password: ''
             },
-            activeName: /* this.$store.state.activeName */"first",
-            // 输入校验
+            activeName: this.$store.state.activeName,
+           
             rules: {
                 email: [{
                         required: true,
                         message: '请输入邮箱地址',
                         trigger: 'blur'
                     },
+                    // 输入校验
+                    
                     {
                         type: 'email',
                         message: '请输入正确的邮箱地址',
@@ -82,35 +86,38 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    let opt = this.dynamicValidateForm;
-                    api.UserLogin(opt).then(({
-                        data
-                    }) => {
-                        console.log(data)
-                        if (!data.info) {
+                    let user = this.dynamicValidateForm;
+                    
+                    api.UserLogin(user).then((response) => {
+
+                        if (response.data.message == "unknow account") {
                             this.$message({
-                                type: 'info',
+                                type: 'warning',
                                 message: '账号不存在'
                             })
                         }
-                        if (data.success) {
+                        if (response.data.message == "success") {
                             this.$message({
                                 type: 'success',
                                 message: '登录成功'
                             })
-                            this.$store.dispatch('UserLogin', data.token)
-                            this.$store.dispatch('UserName', data.email)
+                            this.$store.dispatch('UserLogin', response.data.token)
+                            this.$store.dispatch('UserName', response.data.username)
                             let redirect = decodeURIComponent(this.$route.query.redirect || '/');
+                            
+                            
+
                             this.$router.push({
                                 path: redirect
                             })
-                        } else {
-                            this.$message({
-                                type: 'info',
-                                message: '密码错误'
-                            })
+                        } 
+                        if (response.data.message == "fail") {
+                           this.$message.error('密码错误');
                         }
+                    }).catch((response) => {
+                        
                     })
+
                 } else {
                     console.log('Error Submit!!');
                     return false;

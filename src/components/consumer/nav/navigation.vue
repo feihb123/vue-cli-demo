@@ -42,12 +42,15 @@
                 <el-menu-item index="4" @click="skip('appointment')">预约</el-menu-item>
                 <el-menu-item index="5" @click="skip('diy')">个性定制</el-menu-item>
                 <el-menu-item index="6"  style="width:80px;color:#0000EE"
-                 v-if="login == false"   @click="skip('login')">登录</el-menu-item>
+                 v-if="username == '' "   @click="skip('login')">登录{{username}}</el-menu-item>
                 <el-menu-item index="6"  style="width:80px;color:#0000EE;" 
-                 v-if="login == true"   @click="skip('logout')">注销</el-menu-item>
-                <el-submenu index="7"  >
-                  <template slot="title" id="photo"><img :src="photo" class="photo"></template>
-                  
+                 v-else  @click="skip('logout')">注销</el-menu-item>
+                <el-submenu index="7"   >
+                  <template slot="title" id="photo">
+                    <img v-if="username == '' " :src="photo" class="photo">
+                    <img v-else :src="photo" class="photo">
+                  </template>
+
                   <el-menu-item index="7-1"  @click="skip('personal')">个人信息</el-menu-item>
                 </el-submenu>
                 
@@ -63,14 +66,25 @@
 
 <script>
 
+
 export default {
-  name:'Navigation',
-  data() {
+    name:'Navigation',
+    data() {
       return {
         activeIndex: '1',
         photo:'/api/img/default.jpg',
-        login:false,
+        
       };
+    },
+    mounted(){
+       if(this.username != ""){
+         this.photo
+       }
+    },
+    computed:{
+      username(){
+        return this.$store.state.username;
+      }
     },
     methods: {
       handleSelect(key, keyPath) {
