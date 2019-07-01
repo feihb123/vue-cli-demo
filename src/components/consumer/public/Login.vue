@@ -103,6 +103,7 @@ export default {
                             })
                             
                             this.$store.dispatch('UserLogin', response.data.token)
+                            this.$store.dispatch('UserId', response.data.id)
                             this.$store.dispatch('UserName', response.data.username)
                             this.$store.dispatch('UserPortrait', response.data.headPortrait);
                             let redirect = decodeURIComponent(this.$route.query.redirect || '/');

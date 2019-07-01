@@ -1,15 +1,15 @@
 <!-- 主页 -->
 <template>
   <div>
-      <carType></carType>
-      <search></search>
-      <middle></middle>
-      <br>
-      <hot></hot>
-      <shop></shop>
-      <!-- 回到顶部 -->
-      <el-backtop></el-backtop>
-      <my-footer></my-footer>     
+    <carType></carType>
+    <search></search>
+    <middle></middle>
+    <br>
+    <hot></hot>
+    <shop></shop>
+    <!-- 回到顶部 -->
+    <el-backtop></el-backtop>
+    <my-footer></my-footer>     
    </div>
 </template>
 

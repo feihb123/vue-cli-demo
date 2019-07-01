@@ -8,6 +8,7 @@ Vue.use(Vuex);
 const state = {
 	token: null,
 	activeName: 'first',
+	id:'',
 	username: '',
 	portrait:'',
 }

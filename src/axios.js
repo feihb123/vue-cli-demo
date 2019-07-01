@@ -28,11 +28,11 @@ instance.interceptors.response.use(response => {
 export default {
 	// 用户注册
 	userRegister(data) {
-		return instance.post('/api/register', data)
+		return instance.post('/api/public/register', data)
 	},
 	// 用户登录
 	UserLogin(data) {
-		return instance.post('/api/login', data)
+		return instance.post('/api/public/login', data)
 	},
 	// 获取用户
 	getUser() {
@@ -42,9 +42,10 @@ export default {
 	delUser(data) {
 		return instance.post('/api/delUser', data)
 	},
-	//获取用户头像
-	getUserPortrait(data) {
-		return instance.get('/api/getUserPortrait', data)
+	
+	// 用户注销登录
+	UserLogOut(data) {
+		return instance.post('/api/public/logOut', data)
 	},
 
 }

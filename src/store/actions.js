@@ -8,7 +8,9 @@ export default {
 	UserLogout({ commit }) {
 		commit(types.LOGOUT)
 	},
-
+	UserId({ commit }, data) {
+		commit(types.ID, data)
+	},
 	UserName({ commit }, data) {
 		commit(types.USERNAME, data)
 	},

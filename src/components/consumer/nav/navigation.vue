@@ -20,6 +20,7 @@
                 background-color="#ffffff"
                 text-color="#808080"
                 active-text-color="#0000EE"
+                menu-trigger="click"
               >      
                 <el-menu-item index="1" @click="skip('index')">主页</el-menu-item>
                 <el-submenu index="2">
@@ -50,9 +51,8 @@
                     <img v-if="username == '' " src="/api/img/default.jpg" class="photo">
                     <img v-else :src="photo" class="photo">
                   </template>
-                  <el-menu-item index="7-2" >{{username}}</el-menu-item>
-                  <el-menu-item index="7-3" >{{photo}}</el-menu-item>
-                  <el-menu-item index="7-1"  @click="skip('personal')">个人信息</el-menu-item>
+                  <el-menu-item index="7-1" >{{username}}</el-menu-item>
+                  <el-menu-item index="7-2"  @click="skip('personal')">个人信息</el-menu-item>
                 </el-submenu>
                 
               </el-menu>
@@ -93,9 +93,11 @@ export default {
         this.$router.push(url);
       },
       logOut(){
+        api.UserLogOut();
         this.$store.dispatch('UserLogin',"");
         this.$store.dispatch('UserName', "");
         this.$store.dispatch('UserPortrait', "");
+        this.$store.dispatch('UserId', "");
 
         this.$router.push("login");
       }

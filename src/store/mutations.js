@@ -18,6 +18,10 @@ const mutations = {
 		localStorage.setItem('portrait', data)
 		state.portrait = data
 	},
+	[types.ID]:(state, data) => {
+		localStorage.setItem('id', data)
+		state.id = data
+	},
 
 }
 export default mutations
