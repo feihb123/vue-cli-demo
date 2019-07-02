@@ -2,16 +2,16 @@
 <template>
   <div class="shop">
     <el-row>
-    <el-col :span="4" v-for="(shop, index) in shops" :key="shop.shopname" :offset="index %5 ==0 ? 4 : 0">
+    <el-col :span="4" v-for="(shop, index) in shops" :key="shop.id" :offset="index %5 ==0 ? 4 : 0">
         <el-card :body-style="{ padding: '10px' }"  shadow="hover"> 
-        <img :src="prefix+shop.photo" class="image">
+        <img :src="prefix+shop.photo" class="image" @click="enter(shop.id)">
         <div style="padding: 14px;">
             <span>{{shop.shopname}}</span>
             <div class="bottom clearfix">
-            <time class="time">{{ shop.desc }}</time>
+            <div class="time">{{ shop.description }}</div>
             </div>
             <br>
-            <el-button  round>进入店铺</el-button>
+            <el-button  round  @click="enter(shop.id)">进入店铺</el-button>
         </div>
         </el-card>
     </el-col>
@@ -49,6 +49,10 @@ export default {
       }).catch(function (response) {
           console.log(response)
       });
+     
+    },
+    enter(id){
+      window.open("http://localhost:8080/#/shopContent/"+id);
     }
   }
 }

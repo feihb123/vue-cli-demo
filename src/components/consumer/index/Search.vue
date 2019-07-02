@@ -29,7 +29,7 @@
                     </template>
                     <template slot="append">
                     <el-button   class="el-icon-search"  
-                    @click="search"></el-button>
+                    @click="search1"></el-button>
                      </template>
                 </el-input>
             </div>
@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import api from "@/axios"
+
 export default {
   name:'Search',
   data () {
@@ -76,17 +78,35 @@ export default {
         region: '',
         fit:"cover",
         option:[{index:1,name:'店铺'},{index:2,name:'汽配'}],
-        selected:{},
+        selected:"",
         
         
     };
   },
-
+  props:["carType"],
   components: {},
 
   methods: {
-      search(){
-          alert(this.input)
+      search1(){
+          if(this.selected != ""){
+            
+            let param = {
+                selected:this.selected,
+                input:this.input,
+                carType:this.carType
+            }
+
+            api.searchContent(param).then((response)=>{
+                console.log(response);
+                let routeData = this.$router.push({
+                    name:"searchResult",
+                    params:response.data
+                })
+                /* window.open(routeData.href, '_blank'); */
+              })
+          }else{
+              this.$message.error("请选择搜索类型")
+          }
       }
   }
 }

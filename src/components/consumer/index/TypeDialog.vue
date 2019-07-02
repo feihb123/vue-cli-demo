@@ -158,7 +158,8 @@ export default {
       },
       complete(){
           var car = "当前车型:"+this.car.brand+" "+this.car.series+" "+this.car.year+" "+this.car.config;
-          this.$emit('complete',car);
+          
+          this.$emit('complete',car,this.index);
       },
       empty(){
         router.push("/");

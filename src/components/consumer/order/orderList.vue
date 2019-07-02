@@ -41,7 +41,11 @@
           <el-row>
             <el-col :span="2" ><el-button type="info" plain round style="margin-left:10%">取消订单</el-button></el-col>
             <el-col :span="2" :offset="16"><el-button type="primary" plain round  @click="detail" >订单详情</el-button></el-col>
-            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%">确认收货</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '0'">去支付</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '1'">提醒发货</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '2'">确认收货</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '3'">评价商品</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '9'">相关操作</el-button></el-col>
           </el-row>       
         </div>
       </el-card>
@@ -58,7 +62,7 @@ export default {
     return {
     };
   },
-  props:['shops'],
+  props:['shops','status'],
   components: {},
 
   methods: {

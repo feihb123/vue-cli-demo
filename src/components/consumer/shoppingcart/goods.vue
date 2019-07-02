@@ -69,11 +69,11 @@
           </el-col>
           <el-col :span="3"><br>￥{{goods.price}}</el-col>
           <el-col :span="3">
-            <br><el-input-number v-model="goods.amount" @change="handleChange" :min="1" :max="99" label="数量" style="zoom:80%"></el-input-number>
+            <br><el-input-number v-model="goods.amount" @change="handleChange(goods.sid,goods.amount)" :min="1" :max="99" label="数量" style="zoom:80%"></el-input-number>
           </el-col>
           <el-col :span="4"><br><font color="#FF7256"> ￥{{goods.price*goods.amount}}</font></el-col>
           <el-col :span="3"> 
-            <el-button type="default" icon="el-icon-delete" circle style="margin-top:12px" @click="remove(index,nindex)" ></el-button>
+            <el-button type="default" icon="el-icon-delete" circle style="margin-top:12px" @click="remove(index,nindex,goods.sid)" ></el-button>
           </el-col>
         </el-card>
         <br>
@@ -89,7 +89,8 @@
 </template>
 
 <script>
-import { stat } from 'fs';
+import api from "@/axios"
+
 export default {
   name:'Goods',
   data () {
@@ -219,16 +220,35 @@ export default {
       that.abc();
     
     },
-    handleChange(){
+    handleChange(sid,amount){
       this.money();
+      //后台处理
+      var param = {sid:sid,amount:amount}
+      api.updateCart(param).then((response)=>{
+        if(response.data){
+          //增加成功
+        }else{
+          this.$message.error('出了点小问题...');
+        }
+      })
+
     },
-    remove(index,nindex){
+    remove(index,nindex,sid){
       this.shops[index].goods.splice(nindex,1);
       var checklist = this.shops[index].goods;
       if(checklist.length == 0) {
         this.shops.splice(index,1);
       } 
       this.money();
+
+      let param = {data:{sid:sid}}
+      api.delCart(param).then((response)=>{
+        if(response.data){
+          //删除成功
+        }else{
+          this.$message.error('出了点小问题...');
+        }
+      })
     },
     btn:function(){
       var that = this; 

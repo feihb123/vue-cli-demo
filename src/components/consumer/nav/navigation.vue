@@ -22,14 +22,14 @@
                 active-text-color="#0000EE"
                 menu-trigger="click"
               >      
-                <el-menu-item index="1" @click="skip('index')">主页</el-menu-item>
+                <el-menu-item index="1" @click="skip('/index')">主页</el-menu-item>
                 <el-submenu index="2">
                   <template slot="title" id="order">我的订单</template>
-                  <el-menu-item index="2-1"  @click="skip('orders')">全部订单</el-menu-item>
-                  <el-menu-item index="2-2"  @click="skip('waitPay')">待付款</el-menu-item>
-                  <el-menu-item index="2-3"  @click="skip('waitDeliver')">代发货</el-menu-item>
-                  <el-menu-item index="2-4"  @click="skip('waitConfirm')">待收货</el-menu-item>
-                  <el-menu-item index="2-5"  @click="skip('waitEvaluate')">待评价</el-menu-item>
+                  <el-menu-item index="2-1"  @click="skip('/orders')">全部订单</el-menu-item>
+                  <el-menu-item index="2-2"  @click="skip('/waitPay')">待付款</el-menu-item>
+                  <el-menu-item index="2-3"  @click="skip('/waitDeliver')">待发货</el-menu-item>
+                  <el-menu-item index="2-4"  @click="skip('/waitConfirm')">待收货</el-menu-item>
+                  <el-menu-item index="2-5"  @click="skip('/waitEvaluate')">待评价</el-menu-item>
                   <!-- 二级菜单
                   <el-submenu index="2-4">
                     <template slot="title">选项4</template>
@@ -39,11 +39,11 @@
                   </el-submenu>
                   -->
                 </el-submenu>
-                <el-menu-item index="3"  @click="skip('cart')">购物车</el-menu-item>
-                <el-menu-item index="4" @click="skip('appointment')">预约</el-menu-item>
-                <el-menu-item index="5" @click="skip('diy')">个性定制</el-menu-item>
+                <el-menu-item index="3"  @click="skip('/cart')">购物车</el-menu-item>
+                <el-menu-item index="4" @click="skip('/appointment')">预约</el-menu-item>
+                <el-menu-item index="5" @click="skip('/diy')">个性定制</el-menu-item>
                 <el-menu-item index="6"  style="width:80px;color:#0000EE"
-                 v-if="username == '' "   @click="skip('login')">登录</el-menu-item>
+                 v-if="username == '' "   @click="skip('/login')">登录</el-menu-item>
                 <el-menu-item index="6"  style="width:80px;color:#0000EE;" 
                  v-else  @click="logOut">注销</el-menu-item>
                 <el-submenu index="7"   >
@@ -52,7 +52,7 @@
                     <img v-else :src="photo" class="photo">
                   </template>
                   <el-menu-item index="7-1" >{{username}}</el-menu-item>
-                  <el-menu-item index="7-2"  @click="skip('personal')">个人信息</el-menu-item>
+                  <el-menu-item index="7-2"  @click="skip('/personal')">个人信息</el-menu-item>
                 </el-submenu>
                 
               </el-menu>

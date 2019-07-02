@@ -49,6 +49,14 @@ const router = new Router({
 			}
     },
     {
+      path: '/shopContent/*',
+      name: 'shopContent',
+      component: () => import('./views/shopContent.vue'),
+      meta: {
+				requireAuth: true
+			}
+    },
+    {
       path: '/paySuccess',
       name: 'paySuccess',
       component: () => import('./views/paySuccess.vue'),
@@ -100,6 +108,14 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: () => import('./views/login.vue')
+    },
+    {
+      path: '/searchResult',
+      name: 'searchResult',
+      component: () => import('./views/searchResult.vue'),
+      meta: {
+				requireAuth: true
+			}
     },
     
     

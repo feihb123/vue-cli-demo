@@ -92,7 +92,7 @@ export default {
           tel:this.tel,
           total:this.total
       }).then((response) => {
-        
+         
          window.location.href="http://localhost:8008/pay/"+response.data.tradeNo;
       }).catch(function (response) {
           console.log(response)

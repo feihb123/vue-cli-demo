@@ -11,6 +11,7 @@ const state = {
 	id:'',
 	username: '',
 	portrait:'',
+	
 }
 
 export default new Vuex.Store({

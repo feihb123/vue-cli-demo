@@ -50,6 +50,12 @@ export default {
         step:0,
         dialogVisible: false,
         car:'选择您的车型信息',
+        index:{
+          brand:'',
+          series:'',
+          year:'',
+          config:''
+        },
     };
   },
 
@@ -64,8 +70,10 @@ export default {
     closeDialog() {
       this.dialogVisible = false;
     },
-    complete(car){
+    complete(car,index){
       this.car = car;
+      this.index = index;
+      this.$emit('complete',index);
     },
     confirm(){
       this.$confirm('确认清空吗?','清空当前选择', {

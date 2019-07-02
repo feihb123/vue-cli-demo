@@ -1,7 +1,7 @@
 <!-- 待发货订单 -->
 <template>
   <div  v-loading="loading" :element-loading-text="loadingText">
-      <list :shops="shops"></list>
+      <list :shops="shops"  status="1"></list>
   </div>
 </template>
 

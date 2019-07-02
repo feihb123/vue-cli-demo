@@ -47,5 +47,25 @@ export default {
 	UserLogOut(data) {
 		return instance.post('/api/public/logOut', data)
 	},
+	// 访问店铺主页
+	ShopContent(id,data) {
+		return instance.get('/api/shop/content/'+id, data)
+	},
+	// 加购
+	addCart(data) {
+		return instance.post('/api/addCart/', data)
+	},
+	// 更新购物车数量
+	updateCart(data) {
+		return instance.put('/api/cart/', data)
+	},
+	// 删除购物车某项
+	delCart(data) {
+		return instance.delete('/api/cart/', data)
+	},
+	// 主页搜索
+	searchContent(data) {
+		return instance.post('/api/search', data)
+	},
 
 }
