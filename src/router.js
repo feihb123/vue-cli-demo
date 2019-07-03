@@ -117,6 +117,14 @@ const router = new Router({
 				requireAuth: true
 			}
     },
+    {
+      path: '/personal',
+      name: 'personal',
+      component: () => import('./views/personalInfo.vue'),
+      meta: {
+				requireAuth: true
+			}
+    },
     
     
   ]
