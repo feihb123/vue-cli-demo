@@ -22,6 +22,13 @@ const mutations = {
 		localStorage.setItem('id', data)
 		state.id = data
 	},
-
+	[types.CARINDEX]:(state,data)=>{
+		localStorage.setItem('carIndex',data)
+		state.carIndex = data
+	},
+	[types.CAR]:(state,data)=>{
+		localStorage.setItem('car',data)
+		state.car = data
+	}
 }
 export default mutations

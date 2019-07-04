@@ -1,8 +1,8 @@
 <!-- 主页 -->
 <template>
   <div>
-    <carType @complete="complete"></carType>
-    <search :carType="index"></search>
+    <carType></carType>
+    <search></search>
     <middle></middle>
     <br>
     <hot></hot>
@@ -37,11 +37,6 @@ export default {
     
  
   methods: {
-   complete(index){
-     this.index = index;
-   }
-
-
   }
 }
 

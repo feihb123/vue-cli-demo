@@ -102,6 +102,7 @@ export default {
                                 message: '登录成功'
                             })
                             
+                            console.log(response.data)
                             this.$store.dispatch('UserLogin', response.data.token)
                             this.$store.dispatch('UserId', response.data.id)
                             this.$store.dispatch('UserName', response.data.username)

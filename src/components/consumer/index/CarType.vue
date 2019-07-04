@@ -26,7 +26,6 @@
   :dialogVisible= "dialogVisible" 
   v-model = "step" 
   @func = "closeDialog"
-  @complete = "complete"
   ref="dialog"
   ></TypeDialog>
 
@@ -49,16 +48,14 @@ export default {
     return {
         step:0,
         dialogVisible: false,
-        car:'选择您的车型信息',
-        index:{
-          brand:'',
-          series:'',
-          year:'',
-          config:''
-        },
+      
     };
   },
-
+  computed:{
+    car(){
+      return this.$store.state.car;
+    }
+  },
   components: {
       TypeDialog
       },
@@ -70,11 +67,7 @@ export default {
     closeDialog() {
       this.dialogVisible = false;
     },
-    complete(car,index){
-      this.car = car;
-      this.index = index;
-      this.$emit('complete',index);
-    },
+    
     confirm(){
       this.$confirm('确认清空吗?','清空当前选择', {
           confirmButtonText: '确定',
@@ -84,7 +77,7 @@ export default {
         }).then(() => {
           this.step = 0;
           this.$refs.dialog.empty();
-          this.car = '选择您的车型信息';
+          this.$store.dispatch("Car","选择您的车型信息");
           this.$message({
             type: 'success',
             message: '清空成功!'

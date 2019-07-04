@@ -3,17 +3,18 @@
   <div>
 
     <div>
-      <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="portrait"/>
+      <img :src="portraitUrl" class="portrait"/>
     </div>
     <el-upload
     class="upload-demo"
-    action="https://jsonplaceholder.typicode.com/posts/"
+    action="/api/upload"
     :on-preview="handlePreview"
     :on-remove="handleRemove"
     :before-remove="beforeRemove"
-    multiple
-    :limit="3"
+  
     :on-exceed="handleExceed"
+    :show-file-list="false"
+    :on-success="uploadSuccess"
     >
         <el-button size="small" type="primary" >上传头像</el-button>
         <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
@@ -31,6 +32,7 @@
         </el-form-item>
     </el-form>
 
+    <el-button type="primary" plain>提交更改</el-button>
   </div>
 </template>
 
@@ -45,7 +47,8 @@ export default {
         tel: '',
         email: ''
         },
-        fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+        portraitUrl:this.$store.state.portrait,
+        fileList: []
 
     };
   },
@@ -60,10 +63,16 @@ export default {
         console.log(file);
       },
       handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${ file.name }？`);
+      },
+      uploadSuccess(response, file, fileList){
+        console.log(response)
+        this.portraitUrl = response;
+        //更新头像state
+        this.$store.dispatch('UserPortrait', response);
       }
 
   }

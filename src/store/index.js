@@ -11,7 +11,8 @@ const state = {
 	id:'',
 	username: '',
 	portrait:'',
-	
+	car:'选择您的车型信息',
+	carIndex:{},
 }
 
 export default new Vuex.Store({

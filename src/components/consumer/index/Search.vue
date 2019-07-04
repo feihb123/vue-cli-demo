@@ -18,21 +18,25 @@
         <el-form-item >
            
             <div  class="center1">
-                <el-input placeholder="搜索汽配" v-model="input"  style="width:480px">
-                    <template slot="prepend">
-                    <el-select v-model="selected"  placeholder="类型" style="width:80px">
+                <el-input placeholder="搜索汽配" v-model="input"  style="width:480px" class="input-with-select">
+                    
+                    <el-select v-model="selected" slot="prepend" placeholder="类型" 
+                        style="width:80px" >
+
                         <el-option v-for="(item,i) in option" :key="i"
-                        :label="item.name" :value="item.index"
-                        >  
+                        :label="item.name" :value="item.index">  
                         </el-option>
                     </el-select>
-                    </template>
+                    
                     <template slot="append">
                     <el-button   class="el-icon-search"  
-                    @click="search1"></el-button>
+                    @click="search"></el-button>
                      </template>
                 </el-input>
             </div>
+        
+
+
             <div class="center2">
             <a href="#">宝马 </a>
             <a href="#"> 五菱宏光 </a>
@@ -80,20 +84,23 @@ export default {
         option:[{index:1,name:'店铺'},{index:2,name:'汽配'}],
         selected:"",
         
-        
     };
   },
-  props:["carType"],
+  computed:{
+     carIndex(){
+        return this.$store.state.carIndex;
+    }
+  },
   components: {},
 
   methods: {
-      search1(){
+      search(){
           if(this.selected != ""){
             
             let param = {
                 selected:this.selected,
                 input:this.input,
-                carType:this.carType
+                carType:this.carIndex
             }
 
             api.searchContent(param).then((response)=>{

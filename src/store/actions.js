@@ -16,5 +16,11 @@ export default {
 	},
 	UserPortrait({ commit }, data){
 		commit(types.USERPORTRAIT, data)
+	},
+	CarIndex({commit},data){
+		commit(types.CARINDEX,data)
+	},
+	Car({commit},data){
+		commit(types.CAR,data)
 	}
 }
