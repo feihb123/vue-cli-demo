@@ -3,6 +3,15 @@
 
 > 该项目仅为前台界面
 
+技术栈：
+- vue-cli
+- router
+- axios
+- vuex 
+- elementUI
+
+
+
 ### [Vue+SpringBoot前后端综合点这里](http://)
 
 
