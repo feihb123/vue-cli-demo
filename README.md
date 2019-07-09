@@ -8,7 +8,9 @@
 - router
 - axios
 - vuex 
+UI：
 - elementUI
+- animate.css
 
 亮点功能（相对）：
 - dialog多级联动选项框
