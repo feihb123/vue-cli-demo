@@ -20,6 +20,9 @@ UI：
 - 支付宝电脑支付接口
 - 头像指定目录保存
 
+界面：
+![image](../ui/index.png)
+
 ### [Vue+SpringBoot前后端综合点这里](http://)
 
 
