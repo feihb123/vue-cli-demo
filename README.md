@@ -21,9 +21,9 @@ UI：
 - 头像指定目录保存
 
 界面：
-![image](./image/ui/index.png)
-![image](./image/ui/shoppingCart.png)
-![image](./image/ui/info.png)
+![image](./src/image/ui/index.png)
+![image](./src/image/ui/shoppingCart.png)
+![image](./src/image/ui/info.png)
 
 ### [Vue+SpringBoot前后端综合点这里](https://github.com/feihb123/springboot-vue-cli-supplychain)
 
