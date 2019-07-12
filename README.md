@@ -8,6 +8,7 @@
 - router
 - axios
 - vuex 
+
 UI：
 - elementUI
 - animate.css
