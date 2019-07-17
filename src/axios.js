@@ -67,5 +67,13 @@ export default {
 	searchContent(data) {
 		return instance.post('/api/search', data)
 	},
+	// 查找个人信息
+	findPersonalInfo(data) {
+		return instance.post('/api/public/personalInfo', data)
+	},
+	// 修改个人信息
+	updatePersonalInfo(data) {
+		return instance.post('/api/public/updatePersonalInfo', data)
+	},
 
 }

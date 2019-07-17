@@ -22,29 +22,31 @@
 
     <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
         <el-form-item label="昵称">
-            <el-input v-model="formLabelAlign.name"></el-input>
+            <el-input v-model="formLabelAlign.nickname" maxlength="10" show-word-limit></el-input>
         </el-form-item>
         <el-form-item label="手机">
-            <el-input v-model="formLabelAlign.tel"></el-input>
+            <el-input v-model="formLabelAlign.phone" clearable></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
-            <el-input v-model="formLabelAlign.email"></el-input>
+            <el-input v-model="formLabelAlign.email" :disabled="true"></el-input>
         </el-form-item>
     </el-form>
 
-    <el-button type="primary" plain>提交更改</el-button>
+    <el-button type="primary" plain @click="submit">提交更改</el-button>
   </div>
 </template>
 
 <script>
+import api from "@/axios"
+
 export default {
   name:'',
   data () {
     return {
         labelPosition: 'left',
         formLabelAlign: {
-        name: '',
-        tel: '',
+        nickname: '',
+        phone: '',
         email: ''
         },
         portraitUrl:this.$store.state.portrait,
@@ -52,15 +54,34 @@ export default {
 
     };
   },
-
+  mounted(){
+    let id = this.$store.state.id;
+    api.findPersonalInfo(id).then((response)=>{
+      this.formLabelAlign = response.data;
+    }).catch((response)=>{
+      this.$message.error('服务器错误:'+response.data);
+    });
+  },
   components: {},
 
   methods: {
+      submit(){
+        api.updatePersonalInfo(this.formLabelAlign).then((response)=>{
+          if(response.data === 1){
+            this.$message.success("修改成功!");
+          }else{
+            this.$message.error('修改失败！');
+          } 
+        }).catch((response)=>{
+      
+      });
+      },
+
       handleRemove(file, fileList) {  
-        console.log(file, fileList);
+        /* console.log(file, fileList); */
       },
       handlePreview(file) {
-        console.log(file);
+        /* console.log(file); */
       },
       handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -69,7 +90,7 @@ export default {
         return this.$confirm(`确定移除 ${ file.name }？`);
       },
       uploadSuccess(response, file, fileList){
-        console.log(response)
+        /* console.log(response) */
         this.portraitUrl = response;
         //更新头像state
         this.$store.dispatch('UserPortrait', response);
@@ -94,4 +115,5 @@ export default {
     margin-left: 30%;
     width: 35%;
 }
+
 </style>
