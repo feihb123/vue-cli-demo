@@ -12,6 +12,7 @@
 UI：
 - elementUI
 - animate.css
+- three.js
 
 亮点功能（相对）：
 - dialog多级联动选项框
