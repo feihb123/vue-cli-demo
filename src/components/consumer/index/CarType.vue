@@ -36,9 +36,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Router from 'vue-router'
-import TypeDialog from './typeDialog.vue'
+import TypeDialog from './TypeDialog.vue'
 
 
 

@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import Search from "../components/consumer/index/search.vue"
-import Middle from '../components/consumer/index/middle.vue'
-import Shop from '../components/consumer/index/shop.vue'
+import Search from "../components/consumer/index/Search.vue"
+import Middle from '../components/consumer/index/Middle.vue'
+import Shop from '../components/consumer/index/Shop.vue'
 import MyFooter from '../components/consumer/index/myFooter.vue'
-import Hot from '../components/consumer/index/hotCommodity.vue'
-import CarType from '../components/consumer/index/carType.vue'
+import Hot from '../components/consumer/index/HotCommodity.vue'
+import CarType from '../components/consumer/index/CarType.vue'
 
 
 

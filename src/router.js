@@ -125,6 +125,7 @@ const router = new Router({
 				requireAuth: true
 			}
     },
+
     
     
   ]

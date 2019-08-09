@@ -29,8 +29,8 @@
 </template>
 
 <script>
-/* import * as types from '../store/types'
-import api from '../axios' */
+/* import * as types from '../store/types' */
+import api from '@/axios'
 export default {
     name: 'login',
     data() {

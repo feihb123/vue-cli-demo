@@ -12,7 +12,7 @@ const state = {
 	username: '',
 	portrait:'',
 	car:'选择您的车型信息',
-	carIndex:{},
+	carIndex:"{}",
 }
 
 export default new Vuex.Store({

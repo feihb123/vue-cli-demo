@@ -95,7 +95,7 @@ export default {
 
   methods: {
       search(){
-          if(this.selected != ""){
+          if(this.selected != "" && this.$store.state.car != "选择您的车型信息"){
             
             let param = {
                 selected:this.selected,
@@ -112,7 +112,7 @@ export default {
                 /* window.open(routeData.href, '_blank'); */
               })
           }else{
-              this.$message.error("请选择搜索类型")
+              this.$message.error("请选择汽车型号及搜索类型")
           }
       }
   }

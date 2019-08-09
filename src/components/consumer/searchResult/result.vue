@@ -1,7 +1,6 @@
 <!-- 搜索结果 -->
 <template>
-<div v-loading="loading">1111111111
-    {{goods[1].prodctName}}
+<div v-loading="loading">
     <div class="shop">
       <el-row>
         <el-col :span="4" v-for="(good, index) in goods" :key="index" :offset="index %5 ==0 ? 4 : 0">
