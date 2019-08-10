@@ -17,10 +17,16 @@
     <div class="shop">
       <el-row>
         <el-col :span="4" v-for="(good, index) in content.goods" :key="good.productId" :offset="index %5 ==0 ? 4 : 0">
+            
+            <div v-if="index > 4">
+            
+            <el-divider></el-divider>
+            
+            </div>
             <el-card :body-style="{ padding: '10px' }"  shadow="hover"> 
             <img :src="prefix+good.photo" class="image">
             <div style="padding: 14px;">
-                <div style="text-align:left">{{cutString(good.productName,18)}}</div>
+                <div style="text-align:center">{{cutString(good.productName,18)}}</div>
                 <br>
             <el-row  style="text-align:left">
               <el-col :span="12" >
@@ -37,9 +43,11 @@
             </el-row>
 
             <el-row  style="text-align:left">
-              <el-col :span="2" :offset="9" >
+                 
+                 <font size = "3" style="padding-left:10px">加入购物车</font>
+                 
                  <i class="el-icon-shopping-cart-2 cart" @click="addCart(good.productId)"></i>
-                </el-col>
+                
             </el-row>
             
             </div>
