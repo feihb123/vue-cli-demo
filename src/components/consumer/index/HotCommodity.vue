@@ -12,27 +12,27 @@
 
       <el-row :gutter="20">
       <el-col :span="6"><div class="grid-content bg-purple">
-         <img src="@/image/hot/brakeblock.png" class="img">
+         <img src="@/image/hot/brakeblock.png" class="img" @click="tips">
          <br>
          <span>刹车片</span>
         </div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple">
-        <img src="@/image/hot/brakedisc.png" class="img">
+        <img src="@/image/hot/brakedisc.png" class="img" @click="tips">
          <br>
          <span>刹车盘</span>
         </div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple">
-        <img src="@/image/hot/catalyze.png" class="img">
+        <img src="@/image/hot/catalyze.png" class="img" @click="tips">
          <br>
          <span>三元催化</span>
         </div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple">
-        <img src="@/image/hot/dynamo.png" class="img">
+        <img src="@/image/hot/dynamo.png" class="img" @click="tips">
          <br>
          <span>发电机</span>
         </div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple">
-        <img src="@/image/hot/wiper.png" class="img">
+        <img src="@/image/hot/wiper.png" class="img" @click="tips"> 
          <br>
          <span>雨刷器</span>
         </div></el-col>
@@ -48,27 +48,27 @@
     <el-card class="card" >
       <el-row :gutter="20">
       <el-col :span="6"><div class="grid-content bg-purple">
-         <img src="@/image/hot/upkeep.png" class="img">
+         <img src="@/image/hot/upkeep.png" class="img" @click="tips">
          <br>
          <span>保养套餐</span>
         </div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple">
-        <img src="@/image/hot/tiemo.png" class="img">
+        <img src="@/image/hot/tiemo.png" class="img" @click="tips">
          <br>
          <span>车身贴膜</span>
         </div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple">
-        <img src="@/image/hot/change-brake.png" class="img">
+        <img src="@/image/hot/change-brake.png" class="img" @click="tips">
          <br>
          <span>换刹车片</span>
         </div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple">
-        <img src="@/image/hot/sound.png" class="img">
+        <img src="@/image/hot/sound.png" class="img" @click="tips">
          <br>
          <span>音响改装</span>
         </div></el-col>
       <el-col :span="6"><div class="grid-content bg-purple">
-        <img src="@/image/hot/recorder.png" class="img">
+        <img src="@/image/hot/recorder.png" class="img" @click="tips">
          <br>
          <span>行车记录仪</span>
         </div></el-col>
@@ -86,7 +86,7 @@
                 <el-image class="img"
                 style="width: 105px; height: 120px"
                 :src="prefix+'img/mazda.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
+                @click="tips"
                 >
                 </el-image>  
                 
@@ -95,7 +95,7 @@
                 <el-image  class="img"
                 style="width: 120px; height: 120px"
                 :src="prefix+'img/das.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
+                @click="tips"
                 >
                 </el-image> 
                 
@@ -104,7 +104,7 @@
                 <el-image  class="img2"
                 style="width: 140px; height: 100px"
                  :src="prefix+'img/mustang.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
+                @click="tips"
                 >                
                 </el-image>
               
@@ -114,7 +114,7 @@
               <el-image  class="img2"
                 style="width: 140px; height: 100px"
                  :src="prefix+'img/ford.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
+                @click="tips"
                 >
                 </el-image>
               
@@ -126,7 +126,7 @@
                 <el-image  class="img"
                 style="width: 120px; height: 120px"
                  :src="prefix+'img/byd.jpg'"
-                @click="page(prefix+'/img/mazda.jpg')"
+                 @click="tips"
                 >
                 </el-image> 
                 
@@ -162,7 +162,16 @@ export default {
   methods: {
     page(url){
       window.open(url);
+    },
+    tips(){
+      this.$message({
+          showClose: true,
+          message: '尚未开通,请使用搜索功能',
+          type: 'warning',
+          center: true
+        });
     }
+
   }
 }
 

@@ -38,11 +38,11 @@
 
 
             <div class="center2">
-            <a href="#">宝马 </a>
-            <a href="#"> 五菱宏光 </a>
-            <a href="#"> 一汽马自达 </a>
-            <a href="#"> 奔驰汽油 </a>
-            <a href="#"> 福特Mustang </a>
+            <a @click="tips">宝马 </a>
+            <a @click="tips"> 五菱宏光 </a>
+            <a @click="tips"> 一汽马自达 </a>
+            <a @click="tips"> 奔驰汽油 </a>
+            <a @click="tips"> 福特Mustang </a>
             </div>
         </el-form-item>
 
@@ -114,7 +114,14 @@ export default {
           }else{
               this.$message.error("请选择汽车型号及搜索类型")
           }
-      }
+      },
+      tips(){
+      this.$message({
+          showClose: true,
+          message: '敬请期待',
+          center: true
+        });
+    }
   }
 }
 

@@ -2,7 +2,7 @@
 <template>
   <div >
     <el-dialog style="height:800px"
-        title="选择车型信息"
+        title="选择车型信息(仅录入带*信息)"
         :visible.sync="dialogVisible"
         width="60%"
         :before-close="handleClose"

@@ -15,6 +15,11 @@
     </el-row>
     <br>
     <div class="shop">
+      <div v-if="content">
+        <br>
+        <br>
+        <font size="4">店家很懒,还没有上新物品~</font>
+      </div>
       <el-row>
         <el-col :span="4" v-for="(good, index) in content.goods" :key="good.productId" :offset="index %5 ==0 ? 4 : 0">
             
@@ -68,7 +73,7 @@ export default {
   data () {
     return {
       salerId:"",
-      content:[],
+      content:'',
       prefix:"/api",
       loading:true,
     };

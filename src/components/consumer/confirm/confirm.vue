@@ -20,7 +20,7 @@
             </i>
             <br>
             <br>
-            <el-button type="primary" plain>选择其他地址</el-button>
+            <el-button type="primary" plain @click="dialogFormVisible = true">选择其他地址</el-button>
         </el-row>
       </el-card>
       <br>
@@ -61,6 +61,20 @@
       </el-card>
       <el-backtop></el-backtop>
 
+
+
+    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+      <div v-if="address">
+
+      </div>
+      
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -74,7 +88,21 @@ export default {
         addressee:"Herb",
         tel:"1881234567",
         shops:this.$route.params.shops,
-        total:this.$route.params.total
+        total:this.$route.params.total,
+        dialogTableVisible: false,
+        dialogFormVisible: false,
+        form: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
+        address:""
+        
     };
   },
  
