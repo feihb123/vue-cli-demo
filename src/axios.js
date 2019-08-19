@@ -12,7 +12,7 @@ axios.interceptors.request.use = instance.interceptors.request.use
 instance.interceptors.request.use(config => {
 	if(localStorage.getItem('token')) {
 		config.headers.Authorization = `token ${localStorage.getItem('token')}`
-			.replace(/(^\")|(\"$)/g, '')
+			.replace(/(^")|("$)/g, '')
 	}
 	return config
 }, err => {
@@ -74,6 +74,10 @@ export default {
 	// 修改个人信息
 	updatePersonalInfo(data) {
 		return instance.post('/api/public/updatePersonalInfo', data)
+	},
+	// 保存地址信息
+	saveAddress(data) {
+		return instance.post('/api/address', data)
 	},
 
 }

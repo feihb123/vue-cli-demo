@@ -3,20 +3,20 @@
   <div>
       <nav></nav>
       <el-card shadow="hover" class="address">
-        <el-row v-if=" address == '' || addressee =='' || tel == '' ">
-            <i class="el-icon-location-information" style="zoom:150%">请选择地址</i>
+        <el-row v-if=" formLabelAlign.address == '' || formLabelAlign.tel =='' || formLabelAlign.name == '' ">
+            <i class="el-icon-location-information" style="zoom:150%">您还没有添加过地址，请点击按钮新建</i>
             <br>
             <br>
-            <el-button type="primary" plain>选择地址</el-button>
+            <el-button type="primary" plain @click="dialogFormVisible = true">新建地址</el-button>
         </el-row>
         <el-row v-else>
 
-            <font size = "6">{{addressee+"  "}}</font> 
-            <font size = "3" color = "#808080">{{tel}}</font>
+            <font size = "6">{{formLabelAlign.name+"  "}}</font> 
+            <font size = "3" color = "#808080">{{formLabelAlign.tel}}</font>
             <br>
             <br>
             <i class="el-icon-location-information" style="zoom:150%;">
-                <font size = "3">{{address}}</font> 
+                <font size = "3">{{formLabelAlign.address}}</font> 
             </i>
             <br>
             <br>
@@ -64,14 +64,21 @@
 
 
     <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-      <div v-if="address">
-
-      </div>
-      
+      <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign" class="form">
+        <el-form-item label="姓名">
+          <el-input v-model="formLabelAlign.name" maxlength="10" show-word-limit></el-input>
+        </el-form-item>
+        <el-form-item label="电话">
+          <el-input v-model="formLabelAlign.tel" maxlength="11" show-word-limit></el-input>
+        </el-form-item>
+        <el-form-item label="收货地址">
+          <el-input v-model="formLabelAlign.address" clearable></el-input>
+        </el-form-item>
+      </el-form>
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button @click = "dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click = "saveAddress" >确 定</el-button>
       </div>
     </el-dialog>
 
@@ -80,28 +87,25 @@
 
 <script>
 import Nav from "../nav/navigation"
+import api from "@/axios"
 export default {
   name:'',
   data () {
     return {
-        address:"徐州工程学院",
-        addressee:"Herb",
-        tel:"1881234567",
+        address:"",
+        addressee:"",
+        tel:"",
         shops:this.$route.params.shops,
         total:this.$route.params.total,
         dialogTableVisible: false,
         dialogFormVisible: false,
-        form: {
+        labelPosition: 'right',
+        formLabelAlign: {
+          tel: '',
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        },
-        address:""
+          address: ''
+        }
+        
         
     };
   },
@@ -115,9 +119,9 @@ export default {
 
       this.$axios.post("/api/prepay/",{
           shops:this.shops,
-          address:this.address,
-          addressee:this.addressee,
-          tel:this.tel,
+          address:this.formLabelAlign.address,
+          addressee:this.formLabelAlign.name,
+          tel:this.formLabelAlign.tel,
           total:this.total
       }).then((response) => {
          
@@ -138,13 +142,40 @@ export default {
       document.write("</form>");  
       document.form1.submit();  
     } */
+
+    saveAddress(){
+      this.dialogFormVisible = false;
+      if(this.formLabelAlign.tel.length != 11){
+         this.$message.error('请输入11位手机号码');
+      }else if(!(/1\d{10}/g).test(this.formLabelAlign.tel)){
+        this.$message.error('请输入正确的手机号码');
+      }else{
+        //axios请求保存地址
+        let addr = this.formLabelAlign;
+        api.saveAddress(addr).then((response)=>{
+          if(response.data === 1){
+            this.$notify({
+            title: '添加成功',
+            message: '当前地址已切换为新添加地址',
+            type: 'success'
+           });
+          }
+
+        }).catch((response)=>{
+
+        });
+      }
+    }
   }
 }
 
 </script>
 
 <style lang='scss' scoped>
-
+.form{
+  width: 80%;
+  margin: auto;
+}
 
 .address{
     width: 75%;
