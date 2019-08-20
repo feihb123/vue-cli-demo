@@ -20,7 +20,7 @@
             </i>
             <br>
             <br>
-            <el-button type="primary" plain @click="dialogFormVisible = true">选择其他地址</el-button>
+            <el-button type="primary" plain @click="dialogTableVisible = true">选择其他地址</el-button>
         </el-row>
       </el-card>
       <br>
@@ -79,6 +79,18 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click = "dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click = "saveAddress" >确 定</el-button>
+      </div>
+    </el-dialog>
+
+
+    <el-dialog title="其他地址" :visible.sync="dialogTableVisible">
+      <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign" class="form">
+       
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click = "dialogTableVisible = false">取 消</el-button>
+        <el-button type="primary" @click = "changeAddress" >确 定</el-button>
       </div>
     </el-dialog>
 

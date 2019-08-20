@@ -79,5 +79,13 @@ export default {
 	saveAddress(data) {
 		return instance.post('/api/address', data)
 	},
+	// 查询列表地址
+	findAddress(data) {
+		return instance.get('/api/address', data)
+	},
+	// 查询默认地址
+	findDefaultAddress(data) {
+		return instance.get('/api/defaultAddress', data)
+	},
 
 }
