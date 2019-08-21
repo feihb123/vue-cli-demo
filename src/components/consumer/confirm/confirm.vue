@@ -3,7 +3,7 @@
   <div>
       <nav></nav>
       <el-card shadow="hover" class="address">
-        <el-row v-if=" formLabelAlign.address == '' || formLabelAlign.tel =='' || formLabelAlign.name == '' ">
+        <el-row v-if=" defaultAddress.address == '' || defaultAddress.tel =='' || defaultAddress.name == '' ">
             <i class="el-icon-location-information" style="zoom:150%">您还没有添加过地址，请点击按钮新建</i>
             <br>
             <br>
@@ -11,16 +11,17 @@
         </el-row>
         <el-row v-else>
 
-            <font size = "6">{{formLabelAlign.name+"  "}}</font> 
-            <font size = "3" color = "#808080">{{formLabelAlign.tel}}</font>
+            <font size = "6">{{defaultAddress.name+"  "}}</font> 
+            <font size = "3" color = "#808080">{{defaultAddress.tel}}</font>
             <br>
             <br>
             <i class="el-icon-location-information" style="zoom:150%;">
-                <font size = "3">{{formLabelAlign.address}}</font> 
+                <font size = "3">{{defaultAddress.address}}</font> 
             </i>
             <br>
             <br>
-            <el-button type="primary" plain @click="dialogTableVisible = true">选择其他地址</el-button>
+            <el-button type="primary" plain @click="dialogFormVisible = true">新建地址</el-button>
+            <el-button type="primary" plain @click="findAddress">选择其他地址</el-button>
         </el-row>
       </el-card>
       <br>
@@ -63,7 +64,7 @@
 
 
 
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+    <el-dialog title="收货地址" :visible.sync="dialogFormVisible" >
       <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign" class="form">
         <el-form-item label="姓名">
           <el-input v-model="formLabelAlign.name" maxlength="10" show-word-limit></el-input>
@@ -83,10 +84,48 @@
     </el-dialog>
 
 
-    <el-dialog title="其他地址" :visible.sync="dialogTableVisible">
-      <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign" class="form">
-       
-      </el-form>
+    <el-dialog title="其他地址" :visible.sync="dialogTableVisible" width="45%">
+
+        <el-table
+                :data="address"
+                style="width: 100%">
+            <el-table-column
+                    label="姓名"
+                    width="200">
+                <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                        <p>姓名: {{ scope.row.name }}</p>
+                        <p>住址: {{ scope.row.address }}</p>
+                        <div slot="reference" class="name-wrapper">
+                            <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                        </div>
+                    </el-popover>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="电话"
+                    width="200">
+                <template slot-scope="scope">
+                    <i class="el-icon-time"></i>
+                    <span style="margin-left: 10px">{{ scope.row.tel }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="handleDefault(scope.$index)">设为默认</el-button>
+                    <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.$index,scope.row)">删除</el-button>
+                    <el-button
+                            size="mini"
+                            type="primary"
+                            @click="handleSelect(scope.$index,scope.row)">选择</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
 
       <div slot="footer" class="dialog-footer">
         <el-button @click = "dialogTableVisible = false">取 消</el-button>
@@ -104,9 +143,8 @@ export default {
   name:'',
   data () {
     return {
-        address:"",
-        addressee:"",
-        tel:"",
+        address:[],
+        defaultAddress:{},
         shops:this.$route.params.shops,
         total:this.$route.params.total,
         dialogTableVisible: false,
@@ -125,7 +163,11 @@ export default {
   components: {
       Nav,
   },
-
+  mounted(){
+    api.findDefaultAddress().then((response=>{
+      this.defaultAddress = response.data;
+    }))
+  },
   methods: {
     submit(){
 
@@ -154,7 +196,12 @@ export default {
       document.write("</form>");  
       document.form1.submit();  
     } */
-
+    findAddress(){
+      this.dialogTableVisible = true
+      api.findAddress().then((response)=>{
+          this.address = response.data;
+      })
+    },
     saveAddress(){
       this.dialogFormVisible = false;
       if(this.formLabelAlign.tel.length != 11){
@@ -174,10 +221,51 @@ export default {
           }
 
         }).catch((response)=>{
-
+            console.log(response.data)
         });
       }
-    }
+    },
+      handleDefault(index) {
+        
+          api.setDefaultAddress(this.address[index]).then((response) =>{
+              if(response.data === true) {
+                  this.$notify({
+                      title: '设置成功',
+                      message: '已将此地址设置为默认地址',
+                      type: 'success'
+                  });
+              }else{
+                this.$notify.error({
+                  title: '设置失败',
+                  message: '设置失败，请稍后再试'
+                });
+              }
+          })
+      },
+      handleDelete(index,address){
+      
+        api.deleteAddress(address.aid).then(response=>{
+            if(response.data === true) {
+                  this.address.splice(index,1);
+                  this.$notify({
+                      title: '删除成功',
+                      message: '已将此地址删除',
+                      type: 'success'
+                  });
+              }else{
+                this.$notify.error({
+                  title: '删除失败',
+                  message: '删除失败，请稍后再试'
+                });
+              }
+        })
+      },
+
+      handleSelect(index,address){
+        this.defaultAddress = address;
+        this.dialogTableVisible = false;
+      }
+
   }
 }
 

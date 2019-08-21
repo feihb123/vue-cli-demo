@@ -79,6 +79,10 @@ export default {
 	saveAddress(data) {
 		return instance.post('/api/address', data)
 	},
+	// 删除地址
+	deleteAddress(data) {
+		return instance.delete('/api/address/' + data, data)
+	},
 	// 查询列表地址
 	findAddress(data) {
 		return instance.get('/api/address', data)
@@ -86,6 +90,10 @@ export default {
 	// 查询默认地址
 	findDefaultAddress(data) {
 		return instance.get('/api/defaultAddress', data)
+	},
+	//设置默认地址
+	setDefaultAddress(data) {
+		return instance.post('/api/defaultAddress', data)
 	},
 
 }
