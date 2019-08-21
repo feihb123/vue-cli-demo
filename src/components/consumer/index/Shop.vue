@@ -52,7 +52,7 @@ export default {
      
     },
     enter(id){
-      window.open("http://localhost:8080/#/shopContent/"+id);
+      window.open("/supplychain/#/shopContent/"+id);
     }
   }
 }

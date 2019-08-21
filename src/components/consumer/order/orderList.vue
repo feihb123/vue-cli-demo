@@ -39,13 +39,13 @@
 
         <div class="footer">
           <el-row>
-            <el-col :span="2" ><el-button type="info" plain round style="margin-left:10%">取消订单</el-button></el-col>
+            <el-col :span="2" ><el-button type="info" plain round style="margin-left:10%" @click="cancel">取消订单</el-button></el-col>
             <el-col :span="2" :offset="16"><el-button type="primary" plain round  @click="detail" >订单详情</el-button></el-col>
-            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '0'">去支付</el-button></el-col>
-            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '1'">提醒发货</el-button></el-col>
-            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '2'">确认收货</el-button></el-col>
-            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '3'">评价商品</el-button></el-col>
-            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '9'">相关操作</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '0'" @click="operation">去支付</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '1'" @click="operation">提醒发货</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '2'" @click="operation">确认收货</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '3'" @click="operation" >评价商品</el-button></el-col>
+            <el-col :span="1" ><el-button type="warning" plain round style="margin-left:80%" v-if="status == '9'" @click="operation">相关操作</el-button></el-col>
           </el-row>       
         </div>
       </el-card>
@@ -67,7 +67,22 @@ export default {
 
   methods: {
     detail(){
-      alert("详情页");
+      this.$notify.info({
+          title: '消息',
+          message: '详情页尚未接入，请前往购物车操作'
+        });
+    },
+    cancel(){
+      this.$notify.error({
+          title: '消息',
+          message: '测试阶段不允许取消订单，请前往购物车操作'
+        });
+    },
+    operation(){
+      this.$notify.info({
+          title: '消息',
+          message: '等待开通，请前往购物车操作'
+        });
     }
   }
 }

@@ -48,8 +48,8 @@ export default {
 		return instance.post('/api/public/logOut', data)
 	},
 	// 访问店铺主页
-	ShopContent(id,data) {
-		return instance.get('/api/shop/content/'+id, data)
+	ShopContent(id/* ,data */) {
+		return instance.get('/api/shop/content/'+id/* , data */)
 	},
 	// 加购
 	addCart(data) {

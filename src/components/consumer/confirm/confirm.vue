@@ -179,7 +179,7 @@ export default {
           total:this.total
       }).then((response) => {
          
-         window.location.href="http://localhost:8008/pay/"+response.data.tradeNo;
+         window.location.href="/api/pay/"+response.data.tradeNo;
       }).catch(function (response) {
           console.log(response)
       });

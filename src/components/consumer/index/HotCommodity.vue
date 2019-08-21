@@ -149,7 +149,7 @@ export default {
   name:'HotCommodity',
   data () {
     return {
-      prefix:"/api",
+      prefix:"/api/",
     };
   },
 
@@ -166,7 +166,7 @@ export default {
     tips(){
       this.$message({
           showClose: true,
-          message: '尚未开通,请使用搜索功能',
+          message: '尚未开通,请使用搜索功能或下拉选择店铺',
           type: 'warning',
           center: true
         });

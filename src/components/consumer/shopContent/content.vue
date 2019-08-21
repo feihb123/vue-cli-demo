@@ -15,11 +15,7 @@
     </el-row>
     <br>
     <div class="shop">
-      <div v-if="content">
-        <br>
-        <br>
-        <font size="4">店家很懒,还没有上新物品~</font>
-      </div>
+      
       <el-row>
         <el-col :span="4" v-for="(good, index) in content.goods" :key="good.productId" :offset="index %5 ==0 ? 4 : 0">
             
@@ -79,7 +75,7 @@ export default {
     };
   },
   mounted(){
-    this.salerId = location.href.split("/")[5];
+    this.salerId = location.href.split("/")[6];
     api.ShopContent(this.salerId).then((response)=>{
         this.content = response.data;
         this.loading = false;

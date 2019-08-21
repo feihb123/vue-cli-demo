@@ -11,7 +11,7 @@ module.exports = {
         proxy: { // 配置跨域
             '/api': {
 　　　　　　　　　　//要访问的跨域的api的域名
-                target: 'http://localhost:8008',
+                target: 'localhost:8008/',
                 ws: true,//是否代理websockets
                 changOrigin: true,// 如果接口跨域，需要进行这个参数配置
                 pathRewrite: {

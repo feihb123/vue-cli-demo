@@ -57,7 +57,10 @@ export default {
       });
     },
     page(url){
-      window.open(url);
+      this.$notify.info({
+          title: '消息',
+          message: '即将接入资讯'
+        });
     }
   }
 }
