@@ -2,7 +2,7 @@
 # 汽配供应链顾客端Vue前端
 
 > 该项目仅为前台界面
-> ### [Vue+SpringBoot前后端综合点这里](https://github.com/feihb123/springboot-vue-cli-supplychain)
+> ### [Vue+SpringBoot后端点这里](https://github.com/feihb123/springboot-vue-cli-supplychain)
 
 技术栈：
 - vue-cli
