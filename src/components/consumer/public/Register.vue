@@ -104,13 +104,16 @@ export default {
                         data
                     }) => {
                         if (data.success) {
-                            this.$message({
-                                type: 'success',
-                                message: `注册成功，请登录`
-                            })
                             //  Register 设计为了 Login 的组件，所以成功跳转时刷新一次页面
-                            this.$router.go(0)
-                            this.$router.push('/login')
+                            this.$notify({
+                            title: '注册成功',
+                            message: '请修改注册信息登陆',
+                            type: 'success'
+                            });
+                            this.$router.go(0);
+                            this.$router.push('/login');
+                        
+
                         } else {
                             this.$message({
                                 type: 'info',

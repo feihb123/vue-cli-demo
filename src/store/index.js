@@ -9,7 +9,7 @@ const state = {
 	token: null,
 	activeName: 'first',
 	id:'',
-	username: '',
+	username:'',
 	portrait:'',
 	car:'选择您的车型信息',
 	carIndex:"{}",

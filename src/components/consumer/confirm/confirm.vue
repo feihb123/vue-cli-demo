@@ -3,7 +3,7 @@
   <div>
       <nav></nav>
       <el-card shadow="hover" class="address">
-        <el-row v-if=" defaultAddress.address == '' || defaultAddress.tel =='' || defaultAddress.name == '' ">
+        <el-row v-if=" defaultAddress.address == '' || defaultAddress.tel =='' || defaultAddress.name == '' || defaultAddress.address == 'null' ">
             <i class="el-icon-location-information" style="zoom:150%">您还没有添加过地址，请点击按钮新建</i>
             <br>
             <br>

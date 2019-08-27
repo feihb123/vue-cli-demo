@@ -158,6 +158,7 @@ export default {
                 this.loading = false;               
               }else{
                 this.noMore = true;
+                this.loading = false; 
               }
                           
           }).catch((response) => {

@@ -153,8 +153,9 @@ router.beforeEach((to, from, next) => {
   next(); */
 
   let token = localStorage.getItem('token')
+  let username = localStorage.getItem('username')
 	if(to.meta.requireAuth) {
-		if(token) {
+		if(token && (username != "" && username != 'null')) {
 			next()
 		} else {
 			next({

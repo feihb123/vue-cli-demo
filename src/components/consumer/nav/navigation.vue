@@ -43,12 +43,12 @@
                 <el-menu-item index="4" @click="skip('/appointment')">预约</el-menu-item>
                 <el-menu-item index="5" @click="skip('/diy')">个性定制</el-menu-item>
                 <el-menu-item index="6"  style="width:80px;color:#0000EE"
-                 v-if="username == '' "   @click="skip('/login')">登录</el-menu-item>
+                 v-if="this.$store.state.username == 'null' || this.$store.state.username == '' || this.$store.state.username == null"   @click="skip('/login')">登录</el-menu-item>
                 <el-menu-item index="6"  style="width:80px;color:#0000EE;" 
                  v-else  @click="logOut">注销</el-menu-item>
                 <el-submenu index="7"   >
                   <template slot="title" id="photo">
-                    <img v-if="username == '' " src="/api/img/default.jpg" class="photo">
+                    <img v-if="this.$store.state.username == 'null' || this.$store.state.username == '' || this.$store.state.username == null" src="/api/img/default.jpg" class="photo">
                     <img v-else :src="photo" class="photo">
                   </template>
                   <el-menu-item index="7-1" >{{username}}</el-menu-item>
